@@ -8,7 +8,24 @@
 
 import UIKit
 
-class TodoListTableViewController: UITableViewController, CreateTodoItemDelegate, UIPopoverPresentationControllerDelegate {
+class TodoListTableViewController: UITableViewController, CreateTodoItemDelegate, UIPopoverPresentationControllerDelegate, DeleteTodoItemsDelegate {
+    
+    func deleteTodoItems(with priorities: [Bool]) {
+        todoListInfo.todos = todoListInfo.todos.filter {
+            if $0.priority == 0 {
+                return !priorities[0]
+            } else if $0.priority == 1 {
+                return !priorities[1]
+            } else if $0.priority == 2 {
+                return !priorities[2]
+            } else {
+                return false
+            }
+        }
+        self.tableView.reloadData()
+        saveList()
+    }
+    
     
     func createTodoItem(with todoItem: TodoListInfo.TodoItem) {
         todoListInfo.todos.append(todoItem)
@@ -80,6 +97,7 @@ class TodoListTableViewController: UITableViewController, CreateTodoItemDelegate
         if editingStyle == .delete {
             todoListInfo.todos.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .fade)
+            saveList()
         } else if editingStyle == .insert {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
         }    
@@ -110,29 +128,14 @@ class TodoListTableViewController: UITableViewController, CreateTodoItemDelegate
                 vc.createTodoItemDelegate = self
                 vc.popoverPresentationController?.delegate = self
             }
+        } else if segue.identifier == "Delete todo items" {
+            if let vc = segue.destination as? DeleteTodoItemsViewController {
+                vc.deleteTodoItemsDelegate = self
+                vc.popoverPresentationController?.delegate = self
+            }
         }
     }
-    
-    /*func presentationController(_ controller: UIPresentationController, viewControllerForAdaptivePresentationStyle style: UIModalPresentationStyle) -> UIViewController? {
-        let presented = controller.presentedViewController
-        let navigationConroller = UINavigationController(rootViewController: presented)
-        navigationConroller.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Cancel", style: .done, target: self, action: #selector(addTapped))
-        return navigationConroller
-    }
-    
-    func adaptivePresentationStyle(for controller: UIPresentationController,
-                                   traitCollection: UITraitCollection) -> UIModalPresentationStyle {
-        if traitCollection.verticalSizeClass == .compact {
-            return .overFullScreen
-        } else {
-            return .none
-        }
-    }
-    
-    func adaptivePresentationStyleForPresentationController(controller: UIPresentationController) -> UIModalPresentationStyle {
-        return UIModalPresentationStyle.fullScreen
-    } */
-    
+
     func presentationController(_ controller: UIPresentationController,
     viewControllerForAdaptivePresentationStyle
     style: UIModalPresentationStyle) -> UIViewController? {
@@ -142,7 +145,11 @@ class TodoListTableViewController: UITableViewController, CreateTodoItemDelegate
     }
     
     func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
-        return UIModalPresentationStyle.fullScreen
+        if ((controller.presentedViewController as? AddTodoViewController) != nil) {
+            return UIModalPresentationStyle.fullScreen
+        } else {
+            return UIModalPresentationStyle.none
+        }
     }
     
     func saveList() {

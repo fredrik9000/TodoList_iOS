@@ -14,6 +14,7 @@
 		20F6AF29210D5A4900FC0829 /* TodoListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20F6AF28210D5A4900FC0829 /* TodoListTableViewController.swift */; };
 		20F6AF2F210DE84C00FC0829 /* AddTodoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20F6AF2E210DE84C00FC0829 /* AddTodoViewController.swift */; };
 		20F6AF312115383100FC0829 /* TodoListInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20F6AF302115383100FC0829 /* TodoListInfo.swift */; };
+		20F6AF3321154A5F00FC0829 /* DeleteTodoItemsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20F6AF3221154A5F00FC0829 /* DeleteTodoItemsViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +27,7 @@
 		20F6AF28210D5A4900FC0829 /* TodoListTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoListTableViewController.swift; sourceTree = "<group>"; };
 		20F6AF2E210DE84C00FC0829 /* AddTodoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTodoViewController.swift; sourceTree = "<group>"; };
 		20F6AF302115383100FC0829 /* TodoListInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoListInfo.swift; sourceTree = "<group>"; };
+		20F6AF3221154A5F00FC0829 /* DeleteTodoItemsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteTodoItemsViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,6 +65,7 @@
 				204191652106FD4100AD99E1 /* Main.storyboard */,
 				20F6AF28210D5A4900FC0829 /* TodoListTableViewController.swift */,
 				20F6AF2E210DE84C00FC0829 /* AddTodoViewController.swift */,
+				20F6AF3221154A5F00FC0829 /* DeleteTodoItemsViewController.swift */,
 			);
 			path = TodoList;
 			sourceTree = "<group>";
@@ -161,6 +164,7 @@
 				204191622106FD4100AD99E1 /* AppDelegate.swift in Sources */,
 				20F6AF312115383100FC0829 /* TodoListInfo.swift in Sources */,
 				20F6AF29210D5A4900FC0829 /* TodoListTableViewController.swift in Sources */,
+				20F6AF3321154A5F00FC0829 /* DeleteTodoItemsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

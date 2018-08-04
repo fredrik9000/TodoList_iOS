@@ -33,6 +33,9 @@ class AddTodoViewController: UIViewController, UIPickerViewDataSource, UIPickerV
     @IBOutlet weak var descriptionTextField: UITextField!
     @IBOutlet weak var topLevelStackView: UIStackView!
     
+    let popoverWidthPadding: CGFloat = 30
+    let popoverHeightPadding: CGFloat = 30
+    
     let priorities = ["Low priority", "Medium priority", "High priority"]
     
     @objc func textFieldDidChange(_ textField: UITextField) {
@@ -50,7 +53,7 @@ class AddTodoViewController: UIViewController, UIPickerViewDataSource, UIPickerV
             self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Cancel", style: .done, target: self, action: #selector(cancelController))
         } else {
             let fittedSize = topLevelStackView.sizeThatFits(UILayoutFittingCompressedSize)
-            preferredContentSize = CGSize(width: fittedSize.width + 30, height: fittedSize.height + 30)
+            preferredContentSize = CGSize(width: fittedSize.width + popoverWidthPadding, height: fittedSize.height + popoverHeightPadding)
         }
     }
     

@@ -6,6 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Navigation items with more than one left or right bar item" minToolsVersion="7.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="Stack View standard spacing" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -51,18 +52,133 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="TODO" id="px6-7X-xzH">
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="hyQ-h9-Xj7">
-                            <connections>
-                                <segue destination="vZi-b2-yGD" kind="popoverPresentation" identifier="addTodo" popoverAnchorBarButtonItem="hyQ-h9-Xj7" id="4qd-Y4-jHR">
-                                    <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
-                                </segue>
-                            </connections>
-                        </barButtonItem>
+                        <rightBarButtonItems>
+                            <barButtonItem systemItem="add" id="hyQ-h9-Xj7">
+                                <connections>
+                                    <segue destination="vZi-b2-yGD" kind="popoverPresentation" identifier="addTodo" popoverAnchorBarButtonItem="hyQ-h9-Xj7" id="4qd-Y4-jHR">
+                                        <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
+                                    </segue>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem systemItem="trash" id="J6L-6I-0UL">
+                                <connections>
+                                    <segue destination="gbi-ka-dRn" kind="popoverPresentation" identifier="Delete todo items" popoverAnchorBarButtonItem="J6L-6I-0UL" id="KH6-Kb-Tr0">
+                                        <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
+                                    </segue>
+                                </connections>
+                            </barButtonItem>
+                        </rightBarButtonItems>
                     </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2DH-gU-uRR" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="268" y="-583"/>
+        </scene>
+        <!--Delete Todo Items View Controller-->
+        <scene sceneID="1Zu-P6-Y9W">
+            <objects>
+                <viewController id="gbi-ka-dRn" customClass="DeleteTodoItemsViewController" customModule="TodoList" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="8KT-cW-llG">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="dqv-Fc-cAO">
+                                <rect key="frame" x="118.66666666666669" y="304.66666666666669" width="177" height="147"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="2rx-Bo-Nnb">
+                                        <rect key="frame" x="0.0" y="0.0" width="177" height="31"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Low priority" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ab7-nO-DIh">
+                                                <rect key="frame" x="0.0" y="0.0" width="120" height="31"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="RUR-hD-UBe">
+                                                <rect key="frame" x="128" y="0.0" width="51" height="31"/>
+                                                <connections>
+                                                    <action selector="switchToggled:" destination="gbi-ka-dRn" eventType="valueChanged" id="Hz3-0T-vsO"/>
+                                                </connections>
+                                            </switch>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstItem="Ab7-nO-DIh" firstAttribute="centerY" secondItem="RUR-hD-UBe" secondAttribute="centerY" id="rnP-GD-zfd"/>
+                                        </constraints>
+                                    </stackView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" alignment="top" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="Oc6-Ch-I6a">
+                                        <rect key="frame" x="0.0" y="39" width="177" height="31"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Medium priority" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5Vb-9L-LfV">
+                                                <rect key="frame" x="0.0" y="0.0" width="120" height="31"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="b5z-JO-na1">
+                                                <rect key="frame" x="128" y="0.0" width="51" height="31"/>
+                                                <connections>
+                                                    <action selector="switchToggled:" destination="gbi-ka-dRn" eventType="valueChanged" id="glc-xL-UdJ"/>
+                                                </connections>
+                                            </switch>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstItem="5Vb-9L-LfV" firstAttribute="centerY" secondItem="b5z-JO-na1" secondAttribute="centerY" id="kGt-uE-B7a"/>
+                                        </constraints>
+                                    </stackView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="Ygm-Gr-IUq">
+                                        <rect key="frame" x="0.0" y="78" width="177" height="31"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="High priority" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="D91-dK-ICf">
+                                                <rect key="frame" x="0.0" y="0.0" width="120" height="31"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="Ck7-oO-Cxw">
+                                                <rect key="frame" x="128" y="0.0" width="51" height="31"/>
+                                                <connections>
+                                                    <action selector="switchToggled:" destination="gbi-ka-dRn" eventType="valueChanged" id="85V-fc-gAQ"/>
+                                                </connections>
+                                            </switch>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstItem="D91-dK-ICf" firstAttribute="centerY" secondItem="Ck7-oO-Cxw" secondAttribute="centerY" id="vaN-qJ-jYV"/>
+                                        </constraints>
+                                    </stackView>
+                                    <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tI8-qf-cfy">
+                                        <rect key="frame" x="0.0" y="117" width="177" height="30"/>
+                                        <state key="normal" title="Delete"/>
+                                        <connections>
+                                            <action selector="deletePriorites:" destination="gbi-ka-dRn" eventType="touchUpInside" id="PhJ-Br-J7A"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="RUR-hD-UBe" secondAttribute="trailing" id="2qJ-nI-v9k"/>
+                                    <constraint firstItem="tI8-qf-cfy" firstAttribute="centerX" secondItem="dqv-Fc-cAO" secondAttribute="centerX" id="ekl-d4-qSV"/>
+                                    <constraint firstAttribute="trailing" secondItem="Ck7-oO-Cxw" secondAttribute="trailing" id="fpP-Mw-iVN"/>
+                                    <constraint firstAttribute="trailing" secondItem="b5z-JO-na1" secondAttribute="trailing" id="jV1-Yv-gBJ"/>
+                                </constraints>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="dqv-Fc-cAO" firstAttribute="centerX" secondItem="Tzb-yb-aO4" secondAttribute="centerX" id="YAC-Nn-6aF"/>
+                            <constraint firstItem="dqv-Fc-cAO" firstAttribute="centerY" secondItem="Tzb-yb-aO4" secondAttribute="centerY" id="gP5-dX-JoI"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="Tzb-yb-aO4"/>
+                    </view>
+                    <connections>
+                        <outlet property="deletePrioritesButton" destination="tI8-qf-cfy" id="rOa-j0-1UT"/>
+                        <outlet property="highPrioritySwitch" destination="Ck7-oO-Cxw" id="S97-MK-eXp"/>
+                        <outlet property="lowPrioritySwitch" destination="RUR-hD-UBe" id="FZx-ho-58a"/>
+                        <outlet property="mediumPrioritySwitch" destination="b5z-JO-na1" id="6ZO-rK-8cd"/>
+                        <outlet property="topLevelStackView" destination="dqv-Fc-cAO" id="3mb-L2-ObC"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Lgo-nZ-aco" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="266.66666666666669" y="199.72826086956522"/>
         </scene>
         <!--Add Todo View Controller-->
         <scene sceneID="AJZ-iD-KCu">
