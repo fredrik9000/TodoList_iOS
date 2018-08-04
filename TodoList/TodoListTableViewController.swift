@@ -46,6 +46,8 @@ class TodoListTableViewController: UITableViewController, CreateTodoItemDelegate
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        tableView.tableFooterView = UIView(frame: .zero)
+        
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
@@ -84,7 +86,17 @@ class TodoListTableViewController: UITableViewController, CreateTodoItemDelegate
         let cell = tableView.dequeueReusableCell(withIdentifier: "todoCell", for: indexPath)
 
         cell.textLabel?.text = todoListInfo.todos[indexPath.row].description
-        cell.detailTextLabel?.text = String(todoListInfo.todos[indexPath.row].priority)
+        let priorityForCell = todoListInfo.todos[indexPath.row].priority
+        if (priorityForCell == 0) {
+            cell.backgroundColor = #colorLiteral(red: 0.9568627451, green: 0.9568627451, blue: 0.9568627451, alpha: 1)
+        } else if (priorityForCell == 1) {
+            cell.backgroundColor = #colorLiteral(red: 0.862745098, green: 0.8156862745, blue: 0.7529411765, alpha: 1)
+        } else if (priorityForCell == 2) {
+            cell.backgroundColor = #colorLiteral(red: 0.7529411765, green: 0.6980392157, blue: 0.5137254902, alpha: 1)
+        }
+        /*let bgColorView = UIView()
+        bgColorView.backgroundColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
+        cell.selectedBackgroundView = bgColorView*/
         
         return cell
     }
