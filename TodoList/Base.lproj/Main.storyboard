@@ -200,7 +200,7 @@
                                             <outlet property="delegate" destination="aM2-je-HB0" id="Uby-4W-BMe"/>
                                         </connections>
                                     </pickerView>
-                                    <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8BA-PY-bQW">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8BA-PY-bQW">
                                         <rect key="frame" x="0.0" y="262" width="320" height="30"/>
                                         <state key="normal" title="Add TODO"/>
                                         <connections>

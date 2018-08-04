@@ -31,6 +31,8 @@ class EditTodoItemViewController: UIViewController, UIPickerViewDataSource, UIPi
     let popoverHeightPadding: CGFloat = 30
     let priorities = ["Low priority", "Medium priority", "High priority"]
     var index: Int!
+    var priority: Int!
+    var todoDescription: String!
     
     @objc func textFieldDidChange(_ textField: UITextField) {
         if !(descriptionTextField.text?.isEmpty)! {
@@ -55,6 +57,8 @@ class EditTodoItemViewController: UIViewController, UIPickerViewDataSource, UIPi
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        priorityPickerView.selectRow(priority, inComponent: 0, animated: false)
+        descriptionTextField.text = todoDescription
         descriptionTextField.addTarget(self, action: #selector(AddTodoViewController.textFieldDidChange(_:)), for: UIControlEvents.editingChanged)
     }
 }

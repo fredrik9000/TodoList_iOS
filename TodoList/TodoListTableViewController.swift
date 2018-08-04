@@ -158,6 +158,8 @@ class TodoListTableViewController: UITableViewController, CreateTodoItemDelegate
         } else if segue.identifier == "Edit TODO Item" {
             if let vc = segue.destination as? EditTodoItemViewController, let indexPath = sender as? IndexPath {
                 vc.index = indexPath.row
+                vc.todoDescription = todoListInfo.todos[indexPath.row].description
+                vc.priority = todoListInfo.todos[indexPath.row].priority
                 vc.editTodoItemDelegate = self
             }
         }
