@@ -8,7 +8,7 @@
 
 import UIKit
 
-class TodoListTableViewController: UITableViewController, CreateTodoItemDelegate, UIPopoverPresentationControllerDelegate, DeleteTodoItemsDelegate {
+class TodoListTableViewController: UITableViewController, CreateTodoItemDelegate, UIPopoverPresentationControllerDelegate, DeleteTodoItemsDelegate, EditTodoItemDelegate {
     
     func deleteTodoItems(with priorities: [Bool]) {
         todoListInfo.todos = todoListInfo.todos.filter {
@@ -29,6 +29,13 @@ class TodoListTableViewController: UITableViewController, CreateTodoItemDelegate
     
     func createTodoItem(with todoItem: TodoListInfo.TodoItem) {
         todoListInfo.todos.append(todoItem)
+        todoListInfo.todos.sort(by: {$0.priority > $1.priority})
+        self.tableView.reloadData()
+        saveList()
+    }
+    
+    func updateTodoItem(with todoItem: TodoListInfo.TodoItem, at index: Int) {
+        todoListInfo.todos[index] = todoItem
         todoListInfo.todos.sort(by: {$0.priority > $1.priority})
         self.tableView.reloadData()
         saveList()
@@ -82,6 +89,9 @@ class TodoListTableViewController: UITableViewController, CreateTodoItemDelegate
         return cell
     }
  
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        self.performSegue(withIdentifier: "Edit TODO Item", sender: indexPath)
+    }
 
     /*
     // Override to support conditional editing of the table view.
@@ -123,15 +133,20 @@ class TodoListTableViewController: UITableViewController, CreateTodoItemDelegate
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "addTodo" {
+        if segue.identifier == "Add TODO" {
             if let vc = segue.destination as? AddTodoViewController {
                 vc.createTodoItemDelegate = self
                 vc.popoverPresentationController?.delegate = self
             }
-        } else if segue.identifier == "Delete todo items" {
+        } else if segue.identifier == "Delete TODO items" {
             if let vc = segue.destination as? DeleteTodoItemsViewController {
                 vc.deleteTodoItemsDelegate = self
                 vc.popoverPresentationController?.delegate = self
+            }
+        } else if segue.identifier == "Edit TODO Item" {
+            if let vc = segue.destination as? EditTodoItemViewController, let indexPath = sender as? IndexPath {
+                vc.index = indexPath.row
+                vc.editTodoItemDelegate = self
             }
         }
     }

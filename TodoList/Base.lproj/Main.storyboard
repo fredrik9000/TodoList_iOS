@@ -55,20 +55,23 @@
                         <rightBarButtonItems>
                             <barButtonItem systemItem="add" id="hyQ-h9-Xj7">
                                 <connections>
-                                    <segue destination="vZi-b2-yGD" kind="popoverPresentation" identifier="addTodo" popoverAnchorBarButtonItem="hyQ-h9-Xj7" id="4qd-Y4-jHR">
+                                    <segue destination="vZi-b2-yGD" kind="popoverPresentation" identifier="Add TODO" popoverAnchorBarButtonItem="hyQ-h9-Xj7" id="4qd-Y4-jHR">
                                         <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
                                     </segue>
                                 </connections>
                             </barButtonItem>
                             <barButtonItem systemItem="trash" id="J6L-6I-0UL">
                                 <connections>
-                                    <segue destination="gbi-ka-dRn" kind="popoverPresentation" identifier="Delete todo items" popoverAnchorBarButtonItem="J6L-6I-0UL" id="KH6-Kb-Tr0">
+                                    <segue destination="gbi-ka-dRn" kind="popoverPresentation" identifier="Delete TODO items" popoverAnchorBarButtonItem="J6L-6I-0UL" id="KH6-Kb-Tr0">
                                         <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
                                     </segue>
                                 </connections>
                             </barButtonItem>
                         </rightBarButtonItems>
                     </navigationItem>
+                    <connections>
+                        <segue destination="aM2-je-HB0" kind="show" identifier="Edit TODO Item" id="WEh-oK-kWS"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2DH-gU-uRR" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -178,7 +181,60 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Lgo-nZ-aco" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="266.66666666666669" y="199.72826086956522"/>
+            <point key="canvasLocation" x="267" y="199"/>
+        </scene>
+        <!--Edit Todo Item View Controller-->
+        <scene sceneID="3cj-N1-F0t">
+            <objects>
+                <viewController id="aM2-je-HB0" customClass="EditTodoItemViewController" customModule="TodoList" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="hPL-xR-ISV">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="p5d-Gg-iXQ">
+                                <rect key="frame" x="47" y="254" width="320" height="292"/>
+                                <subviews>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Add description" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="GJM-Wx-edN">
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="30"/>
+                                        <nil key="textColor"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                    <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PRA-Ax-Qbh">
+                                        <rect key="frame" x="0.0" y="38" width="320" height="216"/>
+                                        <connections>
+                                            <outlet property="dataSource" destination="aM2-je-HB0" id="aSr-aV-ubY"/>
+                                            <outlet property="delegate" destination="aM2-je-HB0" id="Uby-4W-BMe"/>
+                                        </connections>
+                                    </pickerView>
+                                    <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8BA-PY-bQW">
+                                        <rect key="frame" x="0.0" y="262" width="320" height="30"/>
+                                        <state key="normal" title="Add TODO"/>
+                                        <connections>
+                                            <action selector="addTodoItem:" destination="vZi-b2-yGD" eventType="touchUpInside" id="Ecs-Yi-fSI"/>
+                                            <action selector="updateTodoItem:" destination="aM2-je-HB0" eventType="touchUpInside" id="H1v-xj-q9k"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="p5d-Gg-iXQ" firstAttribute="centerY" secondItem="CCa-qr-3kL" secondAttribute="centerY" id="129-1c-NqY"/>
+                            <constraint firstItem="p5d-Gg-iXQ" firstAttribute="centerX" secondItem="CCa-qr-3kL" secondAttribute="centerX" id="Q22-sP-cDA"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="CCa-qr-3kL"/>
+                    </view>
+                    <connections>
+                        <outlet property="addTodoButton" destination="8BA-PY-bQW" id="70V-ij-oDY"/>
+                        <outlet property="descriptionTextField" destination="GJM-Wx-edN" id="zy6-0I-knR"/>
+                        <outlet property="priorityPickerView" destination="PRA-Ax-Qbh" id="ail-I4-FYf"/>
+                        <outlet property="topLevelStackView" destination="p5d-Gg-iXQ" id="sjh-zS-v2Q"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="QIk-i1-fKG" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1054" y="199"/>
         </scene>
         <!--Add Todo View Controller-->
         <scene sceneID="AJZ-iD-KCu">
@@ -230,7 +286,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lTh-ze-1Wc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1055" y="-554"/>
+            <point key="canvasLocation" x="1054" y="-584"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="ps1-mZ-1ov">
