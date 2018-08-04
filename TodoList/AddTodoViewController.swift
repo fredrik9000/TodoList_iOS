@@ -39,7 +39,7 @@ class AddTodoViewController: UIViewController, UIPickerViewDataSource, UIPickerV
     let priorities = ["Low priority", "Medium priority", "High priority"]
     
     @objc func textFieldDidChange(_ textField: UITextField) {
-        if !(descriptionTextField.text?.isEmpty)! {
+        if !(descriptionTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)! {
             addTodoButton.isEnabled = true
         } else {
             addTodoButton.isEnabled = false

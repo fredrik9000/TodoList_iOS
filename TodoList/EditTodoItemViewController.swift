@@ -35,7 +35,7 @@ class EditTodoItemViewController: UIViewController, UIPickerViewDataSource, UIPi
     var todoDescription: String!
     
     @objc func textFieldDidChange(_ textField: UITextField) {
-        if !(descriptionTextField.text?.isEmpty)! {
+        if !(descriptionTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)! {
             addTodoButton.isEnabled = true
         } else {
             addTodoButton.isEnabled = false
