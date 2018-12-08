@@ -52,7 +52,7 @@ class AddTodoViewController: UIViewController, UIPickerViewDataSource, UIPickerV
         if self.navigationController != nil {
             self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Cancel", style: .done, target: self, action: #selector(cancelController))
         } else {
-            let fittedSize = topLevelStackView.sizeThatFits(UILayoutFittingCompressedSize)
+            let fittedSize = topLevelStackView.sizeThatFits(UIView.layoutFittingCompressedSize)
             preferredContentSize = CGSize(width: fittedSize.width + popoverWidthPadding, height: fittedSize.height + popoverHeightPadding)
         }
     }
@@ -76,6 +76,6 @@ class AddTodoViewController: UIViewController, UIPickerViewDataSource, UIPickerV
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        descriptionTextField.addTarget(self, action: #selector(AddTodoViewController.textFieldDidChange(_:)), for: UIControlEvents.editingChanged)
+        descriptionTextField.addTarget(self, action: #selector(AddTodoViewController.textFieldDidChange(_:)), for: UIControl.Event.editingChanged)
     }
 }

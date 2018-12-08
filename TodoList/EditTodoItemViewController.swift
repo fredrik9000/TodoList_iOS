@@ -59,6 +59,6 @@ class EditTodoItemViewController: UIViewController, UIPickerViewDataSource, UIPi
 
         priorityPickerView.selectRow(priority, inComponent: 0, animated: false)
         descriptionTextField.text = todoDescription
-        descriptionTextField.addTarget(self, action: #selector(AddTodoViewController.textFieldDidChange(_:)), for: UIControlEvents.editingChanged)
+        descriptionTextField.addTarget(self, action: #selector(AddTodoViewController.textFieldDidChange(_:)), for: UIControl.Event.editingChanged)
     }
 }
