@@ -15,7 +15,12 @@ protocol CreateTodoItemDelegate: AnyObject {
 class AddTodoViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate, UITextFieldDelegate {
     
     weak var createTodoItemDelegate: CreateTodoItemDelegate!
-
+    
+    @IBOutlet weak var addTodoButton: UIButton!
+    @IBOutlet weak var priorityPickerView: UIPickerView!
+    @IBOutlet weak var descriptionTextField: UITextField!
+    @IBOutlet weak var topLevelStackView: UIStackView!
+    
     @IBAction func addTodoItem(_ sender: Any) {
         guard let description = descriptionTextField.text else {
             return
@@ -28,14 +33,8 @@ class AddTodoViewController: UIViewController, UIPickerViewDataSource, UIPickerV
         }
     }
     
-    @IBOutlet weak var addTodoButton: UIButton!
-    @IBOutlet weak var priorityPickerView: UIPickerView!
-    @IBOutlet weak var descriptionTextField: UITextField!
-    @IBOutlet weak var topLevelStackView: UIStackView!
-    
     let popoverWidthPadding: CGFloat = 30
     let popoverHeightPadding: CGFloat = 30
-    
     let priorities = ["Low priority", "Medium priority", "High priority"]
     
     @objc func textFieldDidChange(_ textField: UITextField) {
@@ -44,21 +43,6 @@ class AddTodoViewController: UIViewController, UIPickerViewDataSource, UIPickerV
         } else {
             addTodoButton.isEnabled = false
         }
-    }
-    
-    override func viewWillLayoutSubviews() {
-        super.viewWillLayoutSubviews()
-        
-        if self.navigationController != nil {
-            self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Cancel", style: .done, target: self, action: #selector(cancelController))
-        } else {
-            let fittedSize = topLevelStackView.sizeThatFits(UIView.layoutFittingCompressedSize)
-            preferredContentSize = CGSize(width: fittedSize.width + popoverWidthPadding, height: fittedSize.height + popoverHeightPadding)
-        }
-    }
-    
-    @objc func cancelController(sender: AnyObject) {
-        self.navigationController?.dismiss(animated: true, completion: nil)
     }
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
@@ -77,5 +61,21 @@ class AddTodoViewController: UIViewController, UIPickerViewDataSource, UIPickerV
         super.viewDidLoad()
 
         descriptionTextField.addTarget(self, action: #selector(AddTodoViewController.textFieldDidChange(_:)), for: UIControl.Event.editingChanged)
+    }
+    
+    //Adding a task will be done using a popover on tablets
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        
+        if self.navigationController != nil {
+            self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Cancel", style: .done, target: self, action: #selector(cancelController))
+        } else {
+            let fittedSize = topLevelStackView.sizeThatFits(UIView.layoutFittingCompressedSize)
+            preferredContentSize = CGSize(width: fittedSize.width + popoverWidthPadding, height: fittedSize.height + popoverHeightPadding)
+        }
+    }
+    
+    @objc func cancelController(sender: AnyObject) {
+        self.navigationController?.dismiss(animated: true, completion: nil)
     }
 }

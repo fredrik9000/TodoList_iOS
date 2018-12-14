@@ -11,28 +11,29 @@ import UIKit
 protocol EditTodoItemDelegate: AnyObject {
     func updateTodoItem(with todoItem: TodoListInfo.TodoItem, at index: Int)
 }
-class EditTodoItemViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate, UITextFieldDelegate {
+
+class EditTodoItemViewController: UITableViewController, UITextFieldDelegate {
     
     weak var editTodoItemDelegate: EditTodoItemDelegate!
-
     @IBOutlet weak var descriptionTextField: UITextField!
-    @IBOutlet weak var topLevelStackView: UIStackView!
-    @IBOutlet weak var priorityPickerView: UIPickerView!
-    @IBOutlet weak var addTodoButton: UIButton!
+    @IBOutlet weak var priorityLabel: UILabel!
+    @IBOutlet weak var addTodoButton: UIBarButtonItem!
+    
     @IBAction func updateTodoItem(_ sender: Any) {
         guard let description = descriptionTextField.text else {
             return
         }
-        editTodoItemDelegate.updateTodoItem(with: TodoListInfo.TodoItem(description: description, priority: priorityPickerView.selectedRow(inComponent: 0)), at: self.index)
+        editTodoItemDelegate.updateTodoItem(with: TodoListInfo.TodoItem(description: description, priority: priority), at: self.positionInTodoList)
         self.navigationController?.popViewController(animated: true)
     }
 
     let popoverWidthPadding: CGFloat = 30
     let popoverHeightPadding: CGFloat = 30
     let priorities = ["Low priority", "Medium priority", "High priority"]
-    var index: Int!
-    var priority: Int!
-    var todoDescription: String!
+    
+    var positionInTodoList: Int! //Set from caller
+    var priority: Int! //Set from caller
+    var todoDescription: String! //Set from caller
     
     @objc func textFieldDidChange(_ textField: UITextField) {
         if !(descriptionTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)! {
@@ -42,23 +43,33 @@ class EditTodoItemViewController: UIViewController, UIPickerViewDataSource, UIPi
         }
     }
 
-    func numberOfComponents(in pickerView: UIPickerView) -> Int {
-        return 1
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return priorities.count
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return priorities[row]
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        priorityPickerView.selectRow(priority, inComponent: 0, animated: false)
         descriptionTextField.text = todoDescription
         descriptionTextField.addTarget(self, action: #selector(AddTodoViewController.textFieldDidChange(_:)), for: UIControl.Event.editingChanged)
+        if priority == 0 {
+            priorityLabel.text = "Low"
+        } else if priority == 1 {
+            priorityLabel.text = "Medium"
+        } else {
+            priorityLabel.text = "High"
+        }
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if (indexPath.section == 1) {
+            if priority == 0 {
+                priorityLabel.text = "Medium"
+                priority = 1
+            } else if priority == 1 {
+                priorityLabel.text = "High"
+                priority = 2
+            } else {
+                priorityLabel.text = "Low"
+                priority = 0
+            }
+            self.tableView.deselectRow(at: indexPath, animated: true)
+        }
     }
 }
