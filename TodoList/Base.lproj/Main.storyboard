@@ -47,9 +47,7 @@
                         <rightBarButtonItems>
                             <barButtonItem systemItem="add" id="hyQ-h9-Xj7">
                                 <connections>
-                                    <segue destination="vZi-b2-yGD" kind="popoverPresentation" identifier="Add TODO" popoverAnchorBarButtonItem="hyQ-h9-Xj7" id="4qd-Y4-jHR">
-                                        <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
-                                    </segue>
+                                    <segue destination="2R5-be-nt6" kind="show" identifier="Add TODO Item" id="Sf7-n6-pRr"/>
                                 </connections>
                             </barButtonItem>
                             <barButtonItem systemItem="trash" id="J6L-6I-0UL">
@@ -201,9 +199,9 @@
                                                 </textField>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstAttribute="trailing" secondItem="Ndi-eD-4bF" secondAttribute="trailing" constant="20" symbolic="YES" id="Nzt-7k-QS1"/>
-                                                <constraint firstItem="Ndi-eD-4bF" firstAttribute="centerY" secondItem="J65-Po-Yqj" secondAttribute="centerY" id="qZH-3j-oPW"/>
-                                                <constraint firstItem="Ndi-eD-4bF" firstAttribute="leading" secondItem="J65-Po-Yqj" secondAttribute="leading" constant="20" symbolic="YES" id="vY1-rs-khy"/>
+                                                <constraint firstItem="Ndi-eD-4bF" firstAttribute="leading" secondItem="J65-Po-Yqj" secondAttribute="leading" constant="20" symbolic="YES" id="ISD-YH-ILP"/>
+                                                <constraint firstItem="Ndi-eD-4bF" firstAttribute="centerY" secondItem="J65-Po-Yqj" secondAttribute="centerY" id="enL-pY-n0T"/>
+                                                <constraint firstAttribute="trailing" secondItem="Ndi-eD-4bF" secondAttribute="trailing" constant="20" symbolic="YES" id="lW7-hd-Wzc"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -258,7 +256,7 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Edit TODO item" id="S4R-lf-FQJ">
-                        <barButtonItem key="rightBarButtonItem" title="Done" id="lpG-CC-XFJ">
+                        <barButtonItem key="rightBarButtonItem" enabled="NO" title="Done" id="lpG-CC-XFJ">
                             <connections>
                                 <action selector="updateTodoItem:" destination="2R5-be-nt6" id="lcR-WO-zNX"/>
                             </connections>
@@ -272,59 +270,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4Mq-rt-EfP" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1054" y="199"/>
-        </scene>
-        <!--Add Todo View Controller-->
-        <scene sceneID="AJZ-iD-KCu">
-            <objects>
-                <viewController id="vZi-b2-yGD" customClass="AddTodoViewController" customModule="TodoList" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="ioZ-c6-FxY">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="ceQ-EI-gxQ">
-                                <rect key="frame" x="47" y="232" width="320" height="292"/>
-                                <subviews>
-                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Add description" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="yI3-fb-BBB">
-                                        <rect key="frame" x="0.0" y="0.0" width="320" height="30"/>
-                                        <nil key="textColor"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits"/>
-                                    </textField>
-                                    <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="I30-OJ-OnJ">
-                                        <rect key="frame" x="0.0" y="38" width="320" height="216"/>
-                                        <connections>
-                                            <outlet property="dataSource" destination="vZi-b2-yGD" id="33E-Gk-dnL"/>
-                                            <outlet property="delegate" destination="vZi-b2-yGD" id="OFC-hI-4z1"/>
-                                        </connections>
-                                    </pickerView>
-                                    <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="I1D-Ey-Nxh">
-                                        <rect key="frame" x="0.0" y="262" width="320" height="30"/>
-                                        <state key="normal" title="Add TODO"/>
-                                        <connections>
-                                            <action selector="addTodoItem:" destination="vZi-b2-yGD" eventType="touchUpInside" id="nhX-xf-HzO"/>
-                                        </connections>
-                                    </button>
-                                </subviews>
-                            </stackView>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <constraints>
-                            <constraint firstItem="ceQ-EI-gxQ" firstAttribute="centerY" secondItem="mR6-pQ-LYh" secondAttribute="centerY" id="Vba-LK-kV8"/>
-                            <constraint firstItem="ceQ-EI-gxQ" firstAttribute="centerX" secondItem="mR6-pQ-LYh" secondAttribute="centerX" id="j8j-8x-b3l"/>
-                        </constraints>
-                        <viewLayoutGuide key="safeArea" id="mR6-pQ-LYh"/>
-                    </view>
-                    <connections>
-                        <outlet property="addTodoButton" destination="I1D-Ey-Nxh" id="vxz-MX-WY5"/>
-                        <outlet property="descriptionTextField" destination="yI3-fb-BBB" id="oEd-un-Dtw"/>
-                        <outlet property="priorityPickerView" destination="I30-OJ-OnJ" id="cCG-Wz-Vh8"/>
-                        <outlet property="topLevelStackView" destination="ceQ-EI-gxQ" id="i2A-VX-zaN"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="lTh-ze-1Wc" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1054" y="-584"/>
+            <point key="canvasLocation" x="1385.5072463768117" y="-584.51086956521749"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="ps1-mZ-1ov">
@@ -343,4 +289,7 @@
             <point key="canvasLocation" x="-742" y="-583"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="Sf7-n6-pRr"/>
+    </inferredMetricsTieBreakers>
 </document>

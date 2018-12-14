@@ -145,10 +145,10 @@ class TodoListTableViewController: UITableViewController, CreateTodoItemDelegate
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "Add TODO" {
-            if let vc = segue.destination as? AddTodoViewController {
+        if segue.identifier == "Add TODO Item" {
+            if let vc = segue.destination as? EditTodoItemViewController {
                 vc.createTodoItemDelegate = self
-                vc.popoverPresentationController?.delegate = self
+                vc.isNewItem = true
             }
         } else if segue.identifier == "Delete TODO items" {
             if let vc = segue.destination as? DeleteTodoItemsViewController {
@@ -174,11 +174,7 @@ class TodoListTableViewController: UITableViewController, CreateTodoItemDelegate
     }
     
     func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
-        if ((controller.presentedViewController as? AddTodoViewController) != nil) {
-            return UIModalPresentationStyle.fullScreen
-        } else {
-            return UIModalPresentationStyle.none
-        }
+        return UIModalPresentationStyle.none
     }
     
     func saveList() {

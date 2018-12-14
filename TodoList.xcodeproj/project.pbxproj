@@ -12,7 +12,6 @@
 		204191692106FD4200AD99E1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 204191682106FD4200AD99E1 /* Assets.xcassets */; };
 		2041916C2106FD4200AD99E1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2041916A2106FD4200AD99E1 /* LaunchScreen.storyboard */; };
 		20F6AF29210D5A4900FC0829 /* TodoListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20F6AF28210D5A4900FC0829 /* TodoListTableViewController.swift */; };
-		20F6AF2F210DE84C00FC0829 /* AddTodoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20F6AF2E210DE84C00FC0829 /* AddTodoViewController.swift */; };
 		20F6AF312115383100FC0829 /* TodoListInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20F6AF302115383100FC0829 /* TodoListInfo.swift */; };
 		20F6AF3321154A5F00FC0829 /* DeleteTodoItemsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20F6AF3221154A5F00FC0829 /* DeleteTodoItemsViewController.swift */; };
 		20F6AF35211562DA00FC0829 /* EditTodoItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20F6AF34211562DA00FC0829 /* EditTodoItemViewController.swift */; };
@@ -26,7 +25,6 @@
 		2041916B2106FD4200AD99E1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		2041916D2106FD4200AD99E1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		20F6AF28210D5A4900FC0829 /* TodoListTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoListTableViewController.swift; sourceTree = "<group>"; };
-		20F6AF2E210DE84C00FC0829 /* AddTodoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTodoViewController.swift; sourceTree = "<group>"; };
 		20F6AF302115383100FC0829 /* TodoListInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoListInfo.swift; sourceTree = "<group>"; };
 		20F6AF3221154A5F00FC0829 /* DeleteTodoItemsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteTodoItemsViewController.swift; sourceTree = "<group>"; };
 		20F6AF34211562DA00FC0829 /* EditTodoItemViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditTodoItemViewController.swift; sourceTree = "<group>"; };
@@ -66,7 +64,6 @@
 				20F6AF2A210D5C2B00FC0829 /* Supporting files */,
 				204191652106FD4100AD99E1 /* Main.storyboard */,
 				20F6AF28210D5A4900FC0829 /* TodoListTableViewController.swift */,
-				20F6AF2E210DE84C00FC0829 /* AddTodoViewController.swift */,
 				20F6AF3221154A5F00FC0829 /* DeleteTodoItemsViewController.swift */,
 				20F6AF34211562DA00FC0829 /* EditTodoItemViewController.swift */,
 			);
@@ -165,7 +162,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				20F6AF35211562DA00FC0829 /* EditTodoItemViewController.swift in Sources */,
-				20F6AF2F210DE84C00FC0829 /* AddTodoViewController.swift in Sources */,
 				204191622106FD4100AD99E1 /* AppDelegate.swift in Sources */,
 				20F6AF312115383100FC0829 /* TodoListInfo.swift in Sources */,
 				20F6AF29210D5A4900FC0829 /* TodoListTableViewController.swift in Sources */,
