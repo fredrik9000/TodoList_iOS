@@ -83,10 +83,23 @@ class TodoListTableViewController: UITableViewController, CreateTodoItemDelegate
 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "todoCell", for: indexPath)
+        
+        let todoItem = todoListInfo.todos[indexPath.row]
+        var cell : UITableViewCell
+        if todoItem.dueDate.notificationId == "" {
+            cell = tableView.dequeueReusableCell(withIdentifier: "todoCell", for: indexPath)
+        } else {
+            cell = tableView.dequeueReusableCell(withIdentifier: "todoCellWithNotification", for: indexPath)
+            let calendar = Calendar(identifier: .gregorian)
+            let components = DateComponents(year: todoItem.dueDate.year, month: todoItem.dueDate.month, day: todoItem.dueDate.day, hour: todoItem.dueDate.hour, minute: todoItem.dueDate.minute)
+            let formatter = DateFormatter()
+            formatter.dateFormat = "MMMM dd, yyyy 'at' hh:mm"
+            let formattedDate = formatter.string(from: calendar.date(from: components)!)
+            cell.detailTextLabel?.text = "notify: \(formattedDate)"
+        }
 
-        cell.textLabel?.text = todoListInfo.todos[indexPath.row].description
-        let priorityForCell = todoListInfo.todos[indexPath.row].priority
+        cell.textLabel?.text = todoItem.description
+        let priorityForCell = todoItem.priority
         if (priorityForCell == 0) {
             cell.backgroundColor = #colorLiteral(red: 0.9568627451, green: 0.9568627451, blue: 0.9568627451, alpha: 1)
         } else if (priorityForCell == 1) {
@@ -94,11 +107,12 @@ class TodoListTableViewController: UITableViewController, CreateTodoItemDelegate
         } else if (priorityForCell == 2) {
             cell.backgroundColor = #colorLiteral(red: 0.7529411765, green: 0.6980392157, blue: 0.5137254902, alpha: 1)
         }
-        /*let bgColorView = UIView()
-        bgColorView.backgroundColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
-        cell.selectedBackgroundView = bgColorView*/
         
         return cell
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 60
     }
  
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -149,6 +163,7 @@ class TodoListTableViewController: UITableViewController, CreateTodoItemDelegate
             if let vc = segue.destination as? EditTodoItemViewController {
                 vc.createTodoItemDelegate = self
                 vc.isNewItem = true
+                vc.todoItem = TodoListInfo.TodoItem()
             }
         } else if segue.identifier == "Delete TODO items" {
             if let vc = segue.destination as? DeleteTodoItemsViewController {
@@ -158,8 +173,7 @@ class TodoListTableViewController: UITableViewController, CreateTodoItemDelegate
         } else if segue.identifier == "Edit TODO Item" {
             if let vc = segue.destination as? EditTodoItemViewController, let indexPath = sender as? IndexPath {
                 vc.positionInTodoList = indexPath.row
-                vc.todoDescription = todoListInfo.todos[indexPath.row].description
-                vc.priority = todoListInfo.todos[indexPath.row].priority
+                vc.todoItem = todoListInfo.todos[indexPath.row]
                 vc.editTodoItemDelegate = self
             }
         }

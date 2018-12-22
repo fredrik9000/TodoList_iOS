@@ -13,7 +13,17 @@ struct TodoListInfo: Codable {
     
     struct TodoItem: Codable {
         var description = ""
-        var priority = 0
+        var priority = 1 // Medium
+        var dueDate = DueDate(year: 0, month: 0, day: 0, hour: 0, minute: 0, notificationId: "")
+    }
+    
+    struct DueDate: Codable {
+        var year : Int
+        var month : Int
+        var day : Int
+        var hour : Int
+        var minute : Int
+        var notificationId : String
     }
     
     var json: Data? {

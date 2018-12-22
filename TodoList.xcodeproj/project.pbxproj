@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		203F0CBE21CCC9090078E188 /* DueDateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 203F0CBD21CCC9090078E188 /* DueDateViewController.swift */; };
 		204191622106FD4100AD99E1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 204191612106FD4100AD99E1 /* AppDelegate.swift */; };
 		204191672106FD4100AD99E1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 204191652106FD4100AD99E1 /* Main.storyboard */; };
 		204191692106FD4200AD99E1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 204191682106FD4200AD99E1 /* Assets.xcassets */; };
@@ -18,6 +19,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		203F0CBD21CCC9090078E188 /* DueDateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DueDateViewController.swift; sourceTree = "<group>"; };
 		2041915E2106FD4100AD99E1 /* TodoList.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TodoList.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		204191612106FD4100AD99E1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		204191662106FD4100AD99E1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -66,6 +68,7 @@
 				20F6AF28210D5A4900FC0829 /* TodoListTableViewController.swift */,
 				20F6AF3221154A5F00FC0829 /* DeleteTodoItemsViewController.swift */,
 				20F6AF34211562DA00FC0829 /* EditTodoItemViewController.swift */,
+				203F0CBD21CCC9090078E188 /* DueDateViewController.swift */,
 			);
 			path = TodoList;
 			sourceTree = "<group>";
@@ -166,6 +169,7 @@
 				20F6AF312115383100FC0829 /* TodoListInfo.swift in Sources */,
 				20F6AF29210D5A4900FC0829 /* TodoListTableViewController.swift in Sources */,
 				20F6AF3321154A5F00FC0829 /* DeleteTodoItemsViewController.swift in Sources */,
+				203F0CBE21CCC9090078E188 /* DueDateViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -309,7 +313,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = NRG849FQ7J;
 				INFOPLIST_FILE = "TodoList/Supporting files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -317,6 +323,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = Fredrik.TodoList;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -326,7 +333,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = NRG849FQ7J;
 				INFOPLIST_FILE = "TodoList/Supporting files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -334,6 +343,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = Fredrik.TodoList;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
