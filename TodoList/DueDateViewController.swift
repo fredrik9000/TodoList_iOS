@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import UserNotifications
 
 protocol NotificationDelegate: AnyObject {
     func prepareAddNotification(with date: Date)

@@ -27,10 +27,7 @@ class EditTodoItemViewController: UITableViewController, UITextFieldDelegate, No
     let priorities = ["Low priority", "Medium priority", "High priority"]
     var positionInTodoList: Int! //Set when editing item
     var isNewItem = false; //Set to true when adding item
-    
-    let popoverWidthPadding: CGFloat = 30
-    let popoverHeightPadding: CGFloat = 30
-    
+
     weak var editTodoItemDelegate: EditTodoItemDelegate!
     weak var createTodoItemDelegate: CreateTodoItemDelegate!
     @IBOutlet weak var descriptionTextField: UITextField!
@@ -157,7 +154,6 @@ class EditTodoItemViewController: UITableViewController, UITextFieldDelegate, No
         return true
     }
     
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "Update Due Date" {
             if let vc = segue.destination as? DueDateViewController {
