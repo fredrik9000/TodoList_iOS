@@ -38,8 +38,7 @@ class DueDateViewController: UIViewController {
             let calendar = Calendar(identifier: .gregorian)
             let components = DateComponents(year: dueDate.year, month: dueDate.month, day: dueDate.day, hour: dueDate.hour, minute: dueDate.minute)
             datePicker.setDate(calendar.date(from: components)!, animated: false)
-        } else {
-            datePicker.minimumDate = Date()
         }
+        datePicker.minimumDate = Date()
     }
 }

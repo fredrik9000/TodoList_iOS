@@ -11,6 +11,8 @@ import UserNotifications
 
 class TodoListTableViewController: UITableViewController, CreateTodoItemDelegate, UIPopoverPresentationControllerDelegate, DeleteTodoItemsDelegate, EditTodoItemDelegate {
     
+    var isViewJustLoaded = false
+    
     func deleteTodoItems(with priorities: [Bool]) {
         todoListInfo.todos = todoListInfo.todos.filter {
             if $0.priority == 0 {
@@ -69,12 +71,21 @@ class TodoListTableViewController: UITableViewController, CreateTodoItemDelegate
         super.viewDidLoad()
 
         tableView.tableFooterView = UIView(frame: .zero)
+        isViewJustLoaded = true
         
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        if !isViewJustLoaded {
+            self.tableView.reloadData()
+        }
+        isViewJustLoaded = false
     }
     
     override func awakeFromNib() {
@@ -108,7 +119,7 @@ class TodoListTableViewController: UITableViewController, CreateTodoItemDelegate
         
         let todoItem = todoListInfo.todos[indexPath.row]
         var cell : UITableViewCell
-        if todoItem.dueDate.notificationId == "" {
+        if todoItem.dueDate.notificationId == "" || notificationHasExpired(dueDate: todoItem.dueDate) {
             cell = tableView.dequeueReusableCell(withIdentifier: "todoCell", for: indexPath)
         } else {
             cell = tableView.dequeueReusableCell(withIdentifier: "todoCellWithNotification", for: indexPath)
@@ -131,6 +142,12 @@ class TodoListTableViewController: UITableViewController, CreateTodoItemDelegate
         }
         
         return cell
+    }
+    
+    private func notificationHasExpired(dueDate: TodoListInfo.DueDate) -> Bool {
+        let components = DateComponents(year: dueDate.year, month: dueDate.month, day: dueDate.day, hour: dueDate.hour, minute: dueDate.minute)
+        let someDateTime = Calendar.current.date(from: components)!
+        return someDateTime.timeIntervalSinceNow.sign == .minus
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

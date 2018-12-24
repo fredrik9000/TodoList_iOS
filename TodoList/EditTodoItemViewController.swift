@@ -50,7 +50,7 @@ class EditTodoItemViewController: UITableViewController, UITextFieldDelegate, No
                 let trigger = UNCalendarNotificationTrigger(
                     dateMatching: dateComponents, repeats: false)
                 
-                if todoItem.dueDate.notificationId == "" {
+                if todoItem.dueDate.notificationId == "" || notificationHasExpired(dueDate: todoItem.dueDate) {
                     todoItem.dueDate.notificationId = UUID().uuidString
                 } else {
                     UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [todoItem.dueDate.notificationId])
@@ -78,6 +78,12 @@ class EditTodoItemViewController: UITableViewController, UITextFieldDelegate, No
         }
         
         self.navigationController?.popViewController(animated: true)
+    }
+    
+    private func notificationHasExpired(dueDate: TodoListInfo.DueDate) -> Bool {
+        let components = DateComponents(year: dueDate.year, month: dueDate.month, day: dueDate.day, hour: dueDate.hour, minute: dueDate.minute)
+        let someDateTime = Calendar.current.date(from: components)!
+        return someDateTime.timeIntervalSinceNow.sign == .minus
     }
     
     
