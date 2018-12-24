@@ -7,17 +7,39 @@
 //
 
 import UIKit
+import UserNotifications
 
 class TodoListTableViewController: UITableViewController, CreateTodoItemDelegate, UIPopoverPresentationControllerDelegate, DeleteTodoItemsDelegate, EditTodoItemDelegate {
     
     func deleteTodoItems(with priorities: [Bool]) {
         todoListInfo.todos = todoListInfo.todos.filter {
             if $0.priority == 0 {
-                return !priorities[0]
+                if (priorities[0]) {
+                    if $0.dueDate.notificationId != "" {
+                        UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [$0.dueDate.notificationId])
+                    }
+                    return false
+                } else {
+                    return true
+                }
             } else if $0.priority == 1 {
-                return !priorities[1]
+                if (priorities[1]) {
+                    if $0.dueDate.notificationId != "" {
+                        UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [$0.dueDate.notificationId])
+                    }
+                    return false
+                } else {
+                    return true
+                }
             } else if $0.priority == 2 {
-                return !priorities[2]
+                if (priorities[2]) {
+                    if $0.dueDate.notificationId != "" {
+                        UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [$0.dueDate.notificationId])
+                    }
+                    return false
+                } else {
+                    return true
+                }
             } else {
                 return false
             }
@@ -131,6 +153,10 @@ class TodoListTableViewController: UITableViewController, CreateTodoItemDelegate
     // Override to support editing the table view.
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
+            let todoItem = todoListInfo.todos[indexPath.row]
+            if todoItem.dueDate.notificationId != "" {
+                UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [todoItem.dueDate.notificationId])
+            }
             todoListInfo.todos.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .fade)
             saveList()
