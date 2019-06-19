@@ -33,6 +33,7 @@ class EditTodoItemViewController: UITableViewController, UITextFieldDelegate, No
     @IBOutlet weak var descriptionTextField: UITextField!
     @IBOutlet weak var priorityLabel: UILabel!
     @IBOutlet weak var addTodoButton: UIBarButtonItem!
+    @IBOutlet weak var dueDateCell: UITableViewCell!
     
     @IBAction func updateTodoItem(_ sender: Any) {
         guard let description = descriptionTextField.text else {
@@ -80,6 +81,14 @@ class EditTodoItemViewController: UITableViewController, UITextFieldDelegate, No
         self.navigationController?.popViewController(animated: true)
     }
     
+    private func createNotificationDateString() -> String {
+        let calendar = Calendar(identifier: .gregorian)
+        let components = DateComponents(year: todoItem.dueDate.year, month: todoItem.dueDate.month, day: todoItem.dueDate.day, hour: todoItem.dueDate.hour, minute: todoItem.dueDate.minute)
+        let formatter = DateFormatter()
+        formatter.dateFormat = "MMMM dd, yyyy 'at' hh:mm"
+        return formatter.string(from: calendar.date(from: components)!)
+    }
+    
     private func notificationHasExpired(dueDate: TodoListInfo.DueDate) -> Bool {
         let components = DateComponents(year: dueDate.year, month: dueDate.month, day: dueDate.day, hour: dueDate.hour, minute: dueDate.minute)
         let someDateTime = Calendar.current.date(from: components)!
@@ -96,6 +105,7 @@ class EditTodoItemViewController: UITableViewController, UITextFieldDelegate, No
         todoItem.dueDate.day = dateComponents.day!
         todoItem.dueDate.hour = dateComponents.hour!
         todoItem.dueDate.minute = dateComponents.minute!
+        dueDateCell.detailTextLabel?.text = createNotificationDateString()
     }
     
     func prepareRemoveNotification() {
@@ -106,6 +116,7 @@ class EditTodoItemViewController: UITableViewController, UITextFieldDelegate, No
         todoItem.dueDate.day = 0
         todoItem.dueDate.hour = 0
         todoItem.dueDate.minute = 0
+        dueDateCell.detailTextLabel?.text = "Not set"
     }
     
     @objc func textFieldDidChange(_ textField: UITextField) {
@@ -129,6 +140,9 @@ class EditTodoItemViewController: UITableViewController, UITextFieldDelegate, No
                 priorityLabel.text = "Medium"
             } else {
                 priorityLabel.text = "High"
+            }
+            if todoItem.dueDate.notificationId.count > 0 {
+                dueDateCell.detailTextLabel?.text = createNotificationDateString()
             }
         } else {
             self.title = "New TODO Item"
