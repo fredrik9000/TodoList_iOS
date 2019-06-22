@@ -19,23 +19,23 @@ protocol CreateTodoItemDelegate: AnyObject {
 
 class EditTodoItemViewController: UITableViewController, UITextFieldDelegate, NotificationDelegate {
     
-    var dateComponents : DateComponents!
+    private var dateComponents : DateComponents!
     var todoItem : TodoListInfo.TodoItem!
-    var updateNotification = false
-    var removeNotification = false
+    private var updateNotification = false
+    private var removeNotification = false
     
-    let priorities = ["Low priority", "Medium priority", "High priority"]
+    private let priorities = ["Low priority", "Medium priority", "High priority"]
     var positionInTodoList: Int! //Set when editing item
     var isNewItem = false; //Set to true when adding item
 
     weak var editTodoItemDelegate: EditTodoItemDelegate!
     weak var createTodoItemDelegate: CreateTodoItemDelegate!
-    @IBOutlet weak var descriptionTextField: UITextField!
-    @IBOutlet weak var priorityLabel: UILabel!
-    @IBOutlet weak var addTodoButton: UIBarButtonItem!
-    @IBOutlet weak var dueDateCell: UITableViewCell!
+    @IBOutlet private weak var descriptionTextField: UITextField!
+    @IBOutlet private weak var priorityLabel: UILabel!
+    @IBOutlet private weak var addTodoButton: UIBarButtonItem!
+    @IBOutlet private weak var dueDateCell: UITableViewCell!
     
-    @IBAction func updateTodoItem(_ sender: Any) {
+    @IBAction private func updateTodoItem(_ sender: Any) {
         guard let description = descriptionTextField.text else {
             return
         }

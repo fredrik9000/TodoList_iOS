@@ -15,16 +15,16 @@ class DeleteTodoItemsViewController: UIViewController {
     
     weak var deleteTodoItemsDelegate: DeleteTodoItemsDelegate!
 
-    @IBOutlet weak var lowPrioritySwitch: UISwitch!
-    @IBOutlet weak var mediumPrioritySwitch: UISwitch!
-    @IBOutlet weak var highPrioritySwitch: UISwitch!
-    @IBOutlet weak var deletePrioritesButton: UIButton!
-    @IBOutlet weak var topLevelStackView: UIStackView!
+    @IBOutlet private weak var lowPrioritySwitch: UISwitch!
+    @IBOutlet private weak var mediumPrioritySwitch: UISwitch!
+    @IBOutlet private weak var highPrioritySwitch: UISwitch!
+    @IBOutlet private weak var deletePrioritesButton: UIButton!
+    @IBOutlet private weak var topLevelStackView: UIStackView!
     
-    let popoverWidthPadding: CGFloat = 30
-    let popoverHeightPadding: CGFloat = 30
+    private let popoverWidthPadding: CGFloat = 30
+    private let popoverHeightPadding: CGFloat = 30
     
-    @IBAction func switchToggled(_ sender: UISwitch) {
+    @IBAction private func switchToggled(_ sender: UISwitch) {
         if lowPrioritySwitch.isOn || mediumPrioritySwitch.isOn || highPrioritySwitch.isOn {
             deletePrioritesButton.isEnabled = true
         } else {
@@ -32,7 +32,7 @@ class DeleteTodoItemsViewController: UIViewController {
         }
     }
     
-    @IBAction func deletePriorites(_ sender: UIButton) {
+    @IBAction private func deletePriorites(_ sender: UIButton) {
         deleteTodoItemsDelegate.deleteTodoItems(with: [lowPrioritySwitch.isOn, mediumPrioritySwitch.isOn, highPrioritySwitch.isOn])
         presentingViewController?.dismiss(animated: true)
     }

@@ -17,17 +17,17 @@ class DueDateViewController: UIViewController {
     
     weak var notificationDelegate: NotificationDelegate!
 
-    @IBOutlet weak var removeDueDateButton: UIButton!
-    @IBOutlet weak var addDueDateButton: UIButton!
-    @IBOutlet weak var datePicker: UIDatePicker!
+    @IBOutlet private weak var removeDueDateButton: UIButton!
+    @IBOutlet private weak var addDueDateButton: UIButton!
+    @IBOutlet private weak var datePicker: UIDatePicker!
     var notificationDate : TodoListInfo.DueDate?
     
-    @IBAction func removeDueDate(_ sender: Any) {
+    @IBAction private func removeDueDate(_ sender: Any) {
         notificationDelegate.prepareRemoveNotification()
         navigationController?.popViewController(animated: true)
     }
     
-    @IBAction func addDueDate(_ sender: Any) {
+    @IBAction private func addDueDate(_ sender: Any) {
         notificationDelegate.prepareAddNotification(with: datePicker.date)
         navigationController?.popViewController(animated: true)
     }

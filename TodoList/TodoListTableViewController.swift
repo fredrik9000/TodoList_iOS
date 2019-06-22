@@ -11,7 +11,7 @@ import UserNotifications
 
 class TodoListTableViewController: UITableViewController, CreateTodoItemDelegate, UIPopoverPresentationControllerDelegate, DeleteTodoItemsDelegate, EditTodoItemDelegate {
     
-    var isViewJustLoaded = false
+    private var isViewJustLoaded = false
     
     func deleteTodoItems(with priorities: [Bool]) {
         todoListInfo.todos = todoListInfo.todos.filter {
