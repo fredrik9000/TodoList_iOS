@@ -111,6 +111,12 @@ class TodoListTableViewController: UITableViewController, CreateTodoItemDelegate
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if todoListInfo.todos.count == 0 {
+            self.tableView.setEmptyMessage("Add tasks by tapping the plus-button.")
+        } else {
+            self.tableView.restore()
+        }
+        
         return todoListInfo.todos.count
     }
 
@@ -248,4 +254,24 @@ class TodoListTableViewController: UITableViewController, CreateTodoItemDelegate
         }
     }
 
+}
+
+extension UITableView {
+    func setEmptyMessage(_ message: String) {
+        let messageLabel = UILabel(frame: CGRect(x: 0, y: 0, width: self.bounds.size.width, height: self.bounds.size.height))
+        messageLabel.text = message
+        messageLabel.textColor = #colorLiteral(red: 0.2156862745, green: 0.2156862745, blue: 0.2156862745, alpha: 1)
+        messageLabel.numberOfLines = 0;
+        messageLabel.textAlignment = .center;
+        messageLabel.font = UIFont.systemFont(ofSize: 40)
+        messageLabel.sizeToFit()
+        
+        self.backgroundView = messageLabel;
+        self.separatorStyle = .none;
+    }
+    
+    func restore() {
+        self.backgroundView = nil
+        self.separatorStyle = .singleLine
+    }
 }
