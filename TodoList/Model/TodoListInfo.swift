@@ -15,6 +15,7 @@ struct TodoListInfo: Codable {
         var description = ""
         var priority = 1 // Medium
         var dueDate = DueDate(year: 0, month: 0, day: 0, hour: 0, minute: 0, notificationId: "")
+        var isCompleted = false
     }
     
     struct DueDate: Codable {

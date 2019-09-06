@@ -9,7 +9,7 @@
 import UIKit
 import UserNotifications
 
-class TodoListTableViewController: UITableViewController, CreateTodoItemDelegate, UIPopoverPresentationControllerDelegate, DeleteTodoItemsDelegate, EditTodoItemDelegate {
+class TodoListTableViewController: UITableViewController, CreateTodoItemDelegate, UIPopoverPresentationControllerDelegate, DeleteTodoItemsDelegate, EditTodoItemDelegate, CHeckBoxDelegate {
     
     private var isViewJustLoaded = false
     
@@ -53,14 +53,14 @@ class TodoListTableViewController: UITableViewController, CreateTodoItemDelegate
     
     func createTodoItem(with todoItem: TodoListInfo.TodoItem) {
         todoListInfo.todos.append(todoItem)
-        todoListInfo.todos.sort(by: {$0.priority > $1.priority})
+        sortList()
         self.tableView.reloadData()
         saveList()
     }
     
     func updateTodoItem(with todoItem: TodoListInfo.TodoItem, at index: Int) {
         todoListInfo.todos[index] = todoItem
-        todoListInfo.todos.sort(by: {$0.priority > $1.priority})
+        sortList()
         self.tableView.reloadData()
         saveList()
     }
@@ -69,15 +69,8 @@ class TodoListTableViewController: UITableViewController, CreateTodoItemDelegate
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
         tableView.tableFooterView = UIView(frame: .zero)
         isViewJustLoaded = true
-        
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -99,13 +92,11 @@ class TodoListTableViewController: UITableViewController, CreateTodoItemDelegate
             ).appendingPathComponent("TodoList.json") {
             if let jsonData = try? Data(contentsOf: url), let savedTodoListInfo = TodoListInfo(json: jsonData) {
                 todoListInfo = savedTodoListInfo
-                todoListInfo.todos.sort(by: {$0.priority > $1.priority})
+                sortList()
             }
         }
     }
     
-    // MARK: - Table view data source
-
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
@@ -119,35 +110,75 @@ class TodoListTableViewController: UITableViewController, CreateTodoItemDelegate
         
         return todoListInfo.todos.count
     }
-
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let todoItem = todoListInfo.todos[indexPath.row]
-        var cell : UITableViewCell
         if todoItem.dueDate.notificationId == "" || notificationHasExpired(dueDate: todoItem.dueDate) {
-            cell = tableView.dequeueReusableCell(withIdentifier: "todoCell", for: indexPath)
+            let cell = tableView.dequeueReusableCell(withIdentifier: "todoCell", for: indexPath) as! TodoTableViewCell
+            
+            cell.descriptionLabel!.text = todoItem.description
+            cell.descriptionLabel!.isEnabled = !todoItem.isCompleted
+            
+            setCellPriorityColor(priority: todoItem.priority, cell: cell)
+            configureCellCheckbox(cell: cell, isCompleted: todoItem.isCompleted, row: indexPath.row)
+            
+            return cell
         } else {
-            cell = tableView.dequeueReusableCell(withIdentifier: "todoCellWithNotification", for: indexPath)
+            let cell = tableView.dequeueReusableCell(withIdentifier: "todoNotificationCell", for: indexPath) as! TodoWithNotificationTableViewCell
+            
             let calendar = Calendar(identifier: .gregorian)
             let components = DateComponents(year: todoItem.dueDate.year, month: todoItem.dueDate.month, day: todoItem.dueDate.day, hour: todoItem.dueDate.hour, minute: todoItem.dueDate.minute)
             let formatter = DateFormatter()
             formatter.dateFormat = "MMMM dd, yyyy 'at' hh:mm"
             let formattedDate = formatter.string(from: calendar.date(from: components)!)
-            cell.detailTextLabel?.text = "notify: \(formattedDate)"
+            
+            cell.notificationLabel!.text = "notify: \(formattedDate)"
+            cell.descriptionLabel!.text = todoItem.description
+            cell.descriptionLabel!.isEnabled = !todoItem.isCompleted
+            cell.notificationLabel!.isEnabled = !todoItem.isCompleted
+            
+            setCellPriorityColor(priority: todoItem.priority, cell: cell)
+            configureCellCheckbox(cell: cell, isCompleted: todoItem.isCompleted, row: indexPath.row)
+            
+            return cell
         }
-
-        cell.textLabel?.text = todoItem.description
-        let priorityForCell = todoItem.priority
-        if (priorityForCell == 0) {
+    }
+    
+    private func setCellPriorityColor(priority: Int, cell: TodoTableViewCell) {
+        if (priority == 0) {
             cell.backgroundColor = #colorLiteral(red: 0.9568627451, green: 0.9568627451, blue: 0.9568627451, alpha: 1)
-        } else if (priorityForCell == 1) {
+        } else if (priority == 1) {
             cell.backgroundColor = #colorLiteral(red: 0.862745098, green: 0.8156862745, blue: 0.7529411765, alpha: 1)
-        } else if (priorityForCell == 2) {
+        } else if (priority == 2) {
             cell.backgroundColor = #colorLiteral(red: 0.7529411765, green: 0.6980392157, blue: 0.5137254902, alpha: 1)
         }
+    }
+    
+    private func configureCellCheckbox(cell: TodoTableViewCell, isCompleted: Bool, row: Int) {
+        cell.checkBox.on = isCompleted
+        cell.checkBox.tag = row
+        cell.checkBoxDelegate = self
+    }
+    
+    func checkBoxTap(with tag: Int) {
+        let indexPath = IndexPath(row: tag, section: 0)
+        let cell = tableView.cellForRow(at: indexPath) as! TodoTableViewCell
         
-        return cell
+        if (todoListInfo.todos[tag].dueDate.notificationId != "") {
+            UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [todoListInfo.todos[tag].dueDate.notificationId])
+            todoListInfo.todos[tag].dueDate.notificationId = ""
+            todoListInfo.todos[tag].dueDate.year = 0
+            todoListInfo.todos[tag].dueDate.month = 0
+            todoListInfo.todos[tag].dueDate.day = 0
+            todoListInfo.todos[tag].dueDate.hour = 0
+            todoListInfo.todos[tag].dueDate.minute = 0
+        }
+        
+        todoListInfo.todos[tag].isCompleted = cell.checkBox.on
+
+        sortList()
+        self.tableView.reloadData()
     }
     
     private func notificationHasExpired(dueDate: TodoListInfo.DueDate) -> Bool {
@@ -159,19 +190,18 @@ class TodoListTableViewController: UITableViewController, CreateTodoItemDelegate
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 60
     }
+    
+    override func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
+        // Row should not be selectable if the task is completed
+        if (todoListInfo.todos[indexPath.row].isCompleted) {
+            return nil
+        }
+        return indexPath
+    }
  
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         self.performSegue(withIdentifier: "Edit TODO Item", sender: indexPath)
     }
-
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
-    }
-    */
-
     
     // Override to support editing the table view.
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
@@ -183,26 +213,8 @@ class TodoListTableViewController: UITableViewController, CreateTodoItemDelegate
             todoListInfo.todos.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .fade)
             saveList()
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
+        }
     }
-    
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "Add TODO Item" {
@@ -235,6 +247,20 @@ class TodoListTableViewController: UITableViewController, CreateTodoItemDelegate
     
     func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
         return UIModalPresentationStyle.none
+    }
+    
+    func sortList() {
+        todoListInfo.todos.sort(by: {
+            if($0.isCompleted != $1.isCompleted) {
+                return !$0.isCompleted
+            } else if($0.priority != $1.priority) {
+                return $0.priority > $1.priority
+            } else if ($0.description != $1.description) {
+                return $0.description < $1.description
+            } else {
+                return true
+            }
+        })
     }
     
     func saveList() {
