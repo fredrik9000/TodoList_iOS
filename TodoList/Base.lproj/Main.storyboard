@@ -5,7 +5,6 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14819.2"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
-        <capability name="Stack View standard spacing" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -30,7 +29,7 @@
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <userDefinedRuntimeAttributes>
                                                 <userDefinedRuntimeAttribute type="color" keyPath="onTintColor">
-                                                    <color key="value" white="0.33333333329999998" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <color key="value" red="0.33333333333333331" green="0.3333333432674408" blue="0.3333333432674408" alpha="1" colorSpace="calibratedRGB"/>
                                                 </userDefinedRuntimeAttribute>
                                                 <userDefinedRuntimeAttribute type="color" keyPath="onCheckColor">
                                                     <color key="value" white="0.33333333329999998" alpha="1" colorSpace="calibratedWhite"/>
@@ -158,98 +157,39 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="716"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="dqv-Fc-cAO">
-                                <rect key="frame" x="118.66666666666669" y="284.66666666666669" width="177" height="147"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="uGk-IM-GwO">
+                                <rect key="frame" x="150.66666666666666" y="324" width="112.99999999999997" height="68"/>
                                 <subviews>
-                                    <stackView opaque="NO" contentMode="scaleToFill" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="2rx-Bo-Nnb">
-                                        <rect key="frame" x="0.0" y="0.0" width="177" height="31"/>
-                                        <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Low priority" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ab7-nO-DIh">
-                                                <rect key="frame" x="0.0" y="0.0" width="120" height="31"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                <nil key="textColor"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="RUR-hD-UBe">
-                                                <rect key="frame" x="128" y="0.0" width="51" height="31"/>
-                                                <connections>
-                                                    <action selector="switchToggled:" destination="gbi-ka-dRn" eventType="valueChanged" id="Hz3-0T-vsO"/>
-                                                </connections>
-                                            </switch>
-                                        </subviews>
-                                        <constraints>
-                                            <constraint firstItem="Ab7-nO-DIh" firstAttribute="centerY" secondItem="RUR-hD-UBe" secondAttribute="centerY" id="rnP-GD-zfd"/>
-                                        </constraints>
-                                    </stackView>
-                                    <stackView opaque="NO" contentMode="scaleToFill" alignment="top" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="Oc6-Ch-I6a">
-                                        <rect key="frame" x="0.0" y="39" width="177" height="31"/>
-                                        <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Medium priority" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5Vb-9L-LfV">
-                                                <rect key="frame" x="0.0" y="0.0" width="120" height="31"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                <nil key="textColor"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="b5z-JO-na1">
-                                                <rect key="frame" x="128" y="0.0" width="51" height="31"/>
-                                                <connections>
-                                                    <action selector="switchToggled:" destination="gbi-ka-dRn" eventType="valueChanged" id="glc-xL-UdJ"/>
-                                                </connections>
-                                            </switch>
-                                        </subviews>
-                                        <constraints>
-                                            <constraint firstItem="5Vb-9L-LfV" firstAttribute="centerY" secondItem="b5z-JO-na1" secondAttribute="centerY" id="kGt-uE-B7a"/>
-                                        </constraints>
-                                    </stackView>
-                                    <stackView opaque="NO" contentMode="scaleToFill" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="Ygm-Gr-IUq">
-                                        <rect key="frame" x="0.0" y="78" width="177" height="31"/>
-                                        <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="High priority" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="D91-dK-ICf">
-                                                <rect key="frame" x="0.0" y="0.0" width="120" height="31"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                <nil key="textColor"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="Ck7-oO-Cxw">
-                                                <rect key="frame" x="128" y="0.0" width="51" height="31"/>
-                                                <connections>
-                                                    <action selector="switchToggled:" destination="gbi-ka-dRn" eventType="valueChanged" id="85V-fc-gAQ"/>
-                                                </connections>
-                                            </switch>
-                                        </subviews>
-                                        <constraints>
-                                            <constraint firstItem="D91-dK-ICf" firstAttribute="centerY" secondItem="Ck7-oO-Cxw" secondAttribute="centerY" id="vaN-qJ-jYV"/>
-                                        </constraints>
-                                    </stackView>
-                                    <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tI8-qf-cfy">
-                                        <rect key="frame" x="0.0" y="117" width="177" height="30"/>
-                                        <state key="normal" title="Delete"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LTo-Im-1ts">
+                                        <rect key="frame" x="0.0" y="0.0" width="113" height="30"/>
+                                        <state key="normal" title="Clear completed">
+                                            <color key="titleColor" red="0.21568627450980393" green="0.21568627450980393" blue="0.21568627450980393" alpha="1" colorSpace="calibratedRGB"/>
+                                        </state>
                                         <connections>
-                                            <action selector="deletePriorites:" destination="gbi-ka-dRn" eventType="touchUpInside" id="PhJ-Br-J7A"/>
+                                            <action selector="clearCompleted:" destination="gbi-ka-dRn" eventType="touchUpInside" id="okd-X6-tff"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ufe-p7-ABV">
+                                        <rect key="frame" x="0.0" y="38" width="56" height="30"/>
+                                        <state key="normal" title="Clear all">
+                                            <color key="titleColor" red="0.21568627450980393" green="0.21568627450980393" blue="0.21568627450980393" alpha="1" colorSpace="calibratedRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="clearAll:" destination="gbi-ka-dRn" eventType="touchUpInside" id="Ivc-zn-06F"/>
                                         </connections>
                                     </button>
                                 </subviews>
-                                <constraints>
-                                    <constraint firstAttribute="trailing" secondItem="RUR-hD-UBe" secondAttribute="trailing" id="2qJ-nI-v9k"/>
-                                    <constraint firstItem="tI8-qf-cfy" firstAttribute="centerX" secondItem="dqv-Fc-cAO" secondAttribute="centerX" id="ekl-d4-qSV"/>
-                                    <constraint firstAttribute="trailing" secondItem="Ck7-oO-Cxw" secondAttribute="trailing" id="fpP-Mw-iVN"/>
-                                    <constraint firstAttribute="trailing" secondItem="b5z-JO-na1" secondAttribute="trailing" id="jV1-Yv-gBJ"/>
-                                </constraints>
                             </stackView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="dqv-Fc-cAO" firstAttribute="centerX" secondItem="Tzb-yb-aO4" secondAttribute="centerX" id="YAC-Nn-6aF"/>
-                            <constraint firstItem="dqv-Fc-cAO" firstAttribute="centerY" secondItem="Tzb-yb-aO4" secondAttribute="centerY" id="gP5-dX-JoI"/>
+                            <constraint firstItem="uGk-IM-GwO" firstAttribute="centerX" secondItem="Tzb-yb-aO4" secondAttribute="centerX" id="Q1A-vq-H1I"/>
+                            <constraint firstItem="uGk-IM-GwO" firstAttribute="centerY" secondItem="Tzb-yb-aO4" secondAttribute="centerY" id="zCD-fN-RTf"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Tzb-yb-aO4"/>
                     </view>
                     <connections>
-                        <outlet property="deletePrioritesButton" destination="tI8-qf-cfy" id="rOa-j0-1UT"/>
-                        <outlet property="highPrioritySwitch" destination="Ck7-oO-Cxw" id="S97-MK-eXp"/>
-                        <outlet property="lowPrioritySwitch" destination="RUR-hD-UBe" id="FZx-ho-58a"/>
-                        <outlet property="mediumPrioritySwitch" destination="b5z-JO-na1" id="6ZO-rK-8cd"/>
-                        <outlet property="topLevelStackView" destination="dqv-Fc-cAO" id="3mb-L2-ObC"/>
+                        <outlet property="topLevelStackView" destination="uGk-IM-GwO" id="vlG-fW-4ig"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Lgo-nZ-aco" userLabel="First Responder" sceneMemberID="firstResponder"/>

@@ -9,34 +9,29 @@
 import UIKit
 
 protocol DeleteTodoItemsDelegate: AnyObject {
-    func deleteTodoItems(with priorities: [Bool])
+    func deleteCompletedTodoItems()
+    func deleteAllTodoItems()
 }
 class DeleteTodoItemsViewController: UIViewController {
     
     weak var deleteTodoItemsDelegate: DeleteTodoItemsDelegate!
 
-    @IBOutlet private weak var lowPrioritySwitch: UISwitch!
-    @IBOutlet private weak var mediumPrioritySwitch: UISwitch!
-    @IBOutlet private weak var highPrioritySwitch: UISwitch!
-    @IBOutlet private weak var deletePrioritesButton: UIButton!
+
     @IBOutlet private weak var topLevelStackView: UIStackView!
     
     private let popoverWidthPadding: CGFloat = 30
     private let popoverHeightPadding: CGFloat = 30
     
-    @IBAction private func switchToggled(_ sender: UISwitch) {
-        if lowPrioritySwitch.isOn || mediumPrioritySwitch.isOn || highPrioritySwitch.isOn {
-            deletePrioritesButton.isEnabled = true
-        } else {
-            deletePrioritesButton.isEnabled = false
-        }
-    }
-    
-    @IBAction private func deletePriorites(_ sender: UIButton) {
-        deleteTodoItemsDelegate.deleteTodoItems(with: [lowPrioritySwitch.isOn, mediumPrioritySwitch.isOn, highPrioritySwitch.isOn])
+    @IBAction func clearCompleted(_ sender: UIButton) {
+        deleteTodoItemsDelegate.deleteCompletedTodoItems()
         presentingViewController?.dismiss(animated: true)
     }
     
+    @IBAction func clearAll(_ sender: Any) {
+        deleteTodoItemsDelegate.deleteAllTodoItems()
+        presentingViewController?.dismiss(animated: true)
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
 

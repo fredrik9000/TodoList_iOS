@@ -13,43 +13,32 @@ class TodoListTableViewController: UITableViewController, CreateTodoItemDelegate
     
     private var isViewJustLoaded = false
     
-    func deleteTodoItems(with priorities: [Bool]) {
+    func deleteCompletedTodoItems() {
         todoListInfo.todos = todoListInfo.todos.filter {
-            if $0.priority == 0 {
-                if (priorities[0]) {
-                    if $0.dueDate.notificationId != "" {
-                        UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [$0.dueDate.notificationId])
-                    }
-                    return false
-                } else {
-                    return true
+            if $0.isCompleted == true {
+                if $0.dueDate.notificationId != "" {
+                    UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [$0.dueDate.notificationId])
                 }
-            } else if $0.priority == 1 {
-                if (priorities[1]) {
-                    if $0.dueDate.notificationId != "" {
-                        UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [$0.dueDate.notificationId])
-                    }
-                    return false
-                } else {
-                    return true
-                }
-            } else if $0.priority == 2 {
-                if (priorities[2]) {
-                    if $0.dueDate.notificationId != "" {
-                        UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [$0.dueDate.notificationId])
-                    }
-                    return false
-                } else {
-                    return true
-                }
-            } else {
                 return false
+            } else {
+                return true
             }
         }
         self.tableView.reloadData()
         saveList()
     }
     
+    func deleteAllTodoItems() {
+        todoListInfo.todos.forEach {
+          if $0.dueDate.notificationId != "" {
+                UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [$0.dueDate.notificationId])
+            }
+        }
+        
+        todoListInfo.todos = []
+        self.tableView.reloadData()
+        saveList()
+    }
     
     func createTodoItem(with todoItem: TodoListInfo.TodoItem) {
         todoListInfo.todos.append(todoItem)
@@ -223,16 +212,16 @@ class TodoListTableViewController: UITableViewController, CreateTodoItemDelegate
                 vc.isNewItem = true
                 vc.todoItem = TodoListInfo.TodoItem()
             }
-        } else if segue.identifier == "Delete TODO items" {
-            if let vc = segue.destination as? DeleteTodoItemsViewController {
-                vc.deleteTodoItemsDelegate = self
-                vc.popoverPresentationController?.delegate = self
-            }
         } else if segue.identifier == "Edit TODO Item" {
             if let vc = segue.destination as? EditTodoItemViewController, let indexPath = sender as? IndexPath {
                 vc.positionInTodoList = indexPath.row
                 vc.todoItem = todoListInfo.todos[indexPath.row]
                 vc.editTodoItemDelegate = self
+            }
+        } else if segue.identifier == "Delete TODO items" {
+            if let vc = segue.destination as? DeleteTodoItemsViewController {
+                vc.deleteTodoItemsDelegate = self
+                vc.popoverPresentationController?.delegate = self
             }
         }
     }
