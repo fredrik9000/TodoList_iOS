@@ -108,6 +108,7 @@ class TodoListTableViewController: UITableViewController, CreateTodoItemDelegate
             
             cell.descriptionLabel!.text = todoItem.description
             cell.descriptionLabel!.isEnabled = !todoItem.isCompleted
+            cell.todoId = todoItem.id
             
             setCellPriorityColor(priority: todoItem.priority, cell: cell)
             configureCellCheckbox(cell: cell, isCompleted: todoItem.isCompleted, row: indexPath.row)
@@ -122,10 +123,11 @@ class TodoListTableViewController: UITableViewController, CreateTodoItemDelegate
             formatter.dateFormat = "MMMM dd, yyyy 'at' hh:mm"
             let formattedDate = formatter.string(from: calendar.date(from: components)!)
             
-            cell.notificationLabel!.text = "notify: \(formattedDate)"
+            cell.notificationLabel!.text = "Remind me: \(formattedDate)"
             cell.descriptionLabel!.text = todoItem.description
             cell.descriptionLabel!.isEnabled = !todoItem.isCompleted
             cell.notificationLabel!.isEnabled = !todoItem.isCompleted
+            cell.todoId = todoItem.id
             
             setCellPriorityColor(priority: todoItem.priority, cell: cell)
             configureCellCheckbox(cell: cell, isCompleted: todoItem.isCompleted, row: indexPath.row)
@@ -146,28 +148,48 @@ class TodoListTableViewController: UITableViewController, CreateTodoItemDelegate
     
     private func configureCellCheckbox(cell: TodoTableViewCell, isCompleted: Bool, row: Int) {
         cell.checkBox.on = isCompleted
-        cell.checkBox.tag = row
         cell.checkBoxDelegate = self
     }
     
-    func checkBoxTap(with tag: Int) {
-        let indexPath = IndexPath(row: tag, section: 0)
-        let cell = tableView.cellForRow(at: indexPath) as! TodoTableViewCell
-        
-        if (todoListInfo.todos[tag].dueDate.notificationId != "") {
-            UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [todoListInfo.todos[tag].dueDate.notificationId])
-            todoListInfo.todos[tag].dueDate.notificationId = ""
-            todoListInfo.todos[tag].dueDate.year = 0
-            todoListInfo.todos[tag].dueDate.month = 0
-            todoListInfo.todos[tag].dueDate.day = 0
-            todoListInfo.todos[tag].dueDate.hour = 0
-            todoListInfo.todos[tag].dueDate.minute = 0
+    func checkBoxTap(with todoId: String) {
+        // In order to let the checkbox animation finish, a delay of 500 millisenconds is used
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            let oldPosition = self.findTodoPosition(id: todoId)
+            let cell = self.tableView.cellForRow(at: IndexPath(row: oldPosition, section: 0)) as! TodoTableViewCell
+            
+            if (self.todoListInfo.todos[oldPosition].dueDate.notificationId != "") {
+                UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [self.todoListInfo.todos[oldPosition].dueDate.notificationId])
+                self.todoListInfo.todos[oldPosition].dueDate.notificationId = ""
+                self.todoListInfo.todos[oldPosition].dueDate.year = 0
+                self.todoListInfo.todos[oldPosition].dueDate.month = 0
+                self.todoListInfo.todos[oldPosition].dueDate.day = 0
+                self.todoListInfo.todos[oldPosition].dueDate.hour = 0
+                self.todoListInfo.todos[oldPosition].dueDate.minute = 0
+            }
+            
+            self.todoListInfo.todos[oldPosition].isCompleted = cell.checkBox.on
+            
+            // Reorder the list and move the checked/unchecked todo item to the new position
+            let todo = self.todoListInfo.todos[oldPosition]
+            self.todoListInfo.todos.remove(at: oldPosition)
+            self.tableView.deleteRows(at: [IndexPath(row: oldPosition, section: 0)], with: UITableView.RowAnimation.fade)
+            if let index = self.todoListInfo.todos.firstIndex(where: { self.sortOrder(todo1: todo, todo2: $0) }) {
+                self.todoListInfo.todos.insert(todo, at: index)
+            } else { // Shouldn't happen
+                self.todoListInfo.todos.insert(todo, at: 0)
+                self.sortList()
+            }
+            let newPosition = self.findTodoPosition(id: todoId)
+            self.tableView.insertRows(at:  [IndexPath(row: newPosition, section: 0)], with: UITableView.RowAnimation.fade)
         }
-        
-        todoListInfo.todos[tag].isCompleted = cell.checkBox.on
-
-        sortList()
-        self.tableView.reloadData()
+    }
+    
+    func findTodoPosition(id: String) -> Int {
+        if let index = todoListInfo.todos.firstIndex(where: { $0.id == id }) {
+            return index
+        } else {
+            return 0 // Shouldn't be possible
+        }
     }
     
     private func notificationHasExpired(dueDate: TodoListInfo.DueDate) -> Bool {
@@ -240,16 +262,20 @@ class TodoListTableViewController: UITableViewController, CreateTodoItemDelegate
     
     func sortList() {
         todoListInfo.todos.sort(by: {
-            if($0.isCompleted != $1.isCompleted) {
-                return !$0.isCompleted
-            } else if($0.priority != $1.priority) {
-                return $0.priority > $1.priority
-            } else if ($0.description != $1.description) {
-                return $0.description < $1.description
-            } else {
-                return true
-            }
+            sortOrder(todo1: $0, todo2: $1)
         })
+    }
+    
+    func sortOrder(todo1: TodoListInfo.TodoItem, todo2: TodoListInfo.TodoItem) -> Bool {
+        if(todo1.isCompleted != todo2.isCompleted) {
+            return !todo1.isCompleted
+        } else if(todo1.priority != todo2.priority) {
+            return todo1.priority > todo2.priority
+        } else if (todo1.description != todo2.description) {
+            return todo1.description < todo2.description
+        } else {
+            return true
+        }
     }
     
     func saveList() {

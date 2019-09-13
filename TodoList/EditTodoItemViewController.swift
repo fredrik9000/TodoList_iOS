@@ -42,7 +42,7 @@ class EditTodoItemViewController: UITableViewController, UITextFieldDelegate, No
         
         if updateNotification {
             if removeNotification {
-            UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [todoItem.dueDate.notificationId])
+                UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [todoItem.dueDate.notificationId])
                 todoItem.dueDate.notificationId = ""
             } else {
                 let content = UNMutableNotificationContent()
@@ -145,7 +145,7 @@ class EditTodoItemViewController: UITableViewController, UITextFieldDelegate, No
                 dueDateCell.detailTextLabel?.text = createNotificationDateString()
             }
         } else {
-            self.title = "New TODO Item"
+            self.title = "Add task"
         }
         
         descriptionTextField.addTarget(self, action: #selector(EditTodoItemViewController.textFieldDidChange(_:)), for: UIControl.Event.editingChanged)
@@ -182,7 +182,7 @@ class EditTodoItemViewController: UITableViewController, UITextFieldDelegate, No
             }
             self.tableView.deselectRow(at: indexPath, animated: true)
         } else if (indexPath.section == 2) {
-            self.performSegue(withIdentifier: "Update Due Date", sender: indexPath)
+            self.performSegue(withIdentifier: "Update Reminder", sender: indexPath)
         }
     }
     
@@ -192,7 +192,7 @@ class EditTodoItemViewController: UITableViewController, UITextFieldDelegate, No
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "Update Due Date" {
+        if segue.identifier == "Update Reminder" {
             if let vc = segue.destination as? DueDateViewController {
                 vc.notificationDelegate = self
                 if todoItem.dueDate.year != 0 {

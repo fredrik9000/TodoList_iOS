@@ -12,6 +12,7 @@ struct TodoListInfo: Codable {
     var todos = [TodoItem]()
     
     struct TodoItem: Codable {
+        let id = UUID().uuidString
         var description = ""
         var priority = 1 // Medium
         var dueDate = DueDate(year: 0, month: 0, day: 0, hour: 0, minute: 0, notificationId: "")

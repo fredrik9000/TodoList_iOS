@@ -10,7 +10,7 @@ import UIKit
 import BEMCheckBox
 
 protocol CHeckBoxDelegate: AnyObject {
-    func checkBoxTap(with tag: Int)
+    func checkBoxTap(with todoId: String)
 }
 
 class TodoTableViewCell: UITableViewCell, BEMCheckBoxDelegate {
@@ -21,13 +21,15 @@ class TodoTableViewCell: UITableViewCell, BEMCheckBoxDelegate {
     
     @IBOutlet weak var descriptionLabel: UILabel!
     
+    var todoId = ""
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         checkBox.delegate = self
     }
     
     func didTap(_ checkBox: BEMCheckBox) {
-        checkBoxDelegate!.checkBoxTap(with: checkBox.tag)
+        checkBoxDelegate!.checkBoxTap(with: todoId)
     }
 
 }
