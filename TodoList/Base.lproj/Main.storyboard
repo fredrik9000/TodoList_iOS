@@ -15,7 +15,7 @@
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="dpT-bn-z69">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="todoCell" rowHeight="60" id="Uqg-Wn-ybR" customClass="TodoTableViewCell" customModule="TodoList" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="28" width="414" height="60"/>
@@ -28,15 +28,6 @@
                                             <rect key="frame" x="20" y="15" width="30" height="30"/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <userDefinedRuntimeAttributes>
-                                                <userDefinedRuntimeAttribute type="color" keyPath="onTintColor">
-                                                    <color key="value" red="0.33333333333333331" green="0.3333333432674408" blue="0.3333333432674408" alpha="1" colorSpace="calibratedRGB"/>
-                                                </userDefinedRuntimeAttribute>
-                                                <userDefinedRuntimeAttribute type="color" keyPath="onCheckColor">
-                                                    <color key="value" white="0.33333333329999998" alpha="1" colorSpace="calibratedWhite"/>
-                                                </userDefinedRuntimeAttribute>
-                                                <userDefinedRuntimeAttribute type="color" keyPath="tintColor">
-                                                    <color key="value" white="0.33333333329999998" alpha="1" colorSpace="calibratedWhite"/>
-                                                </userDefinedRuntimeAttribute>
                                                 <userDefinedRuntimeAttribute type="number" keyPath="animationDuration">
                                                     <real key="value" value="0.29999999999999999"/>
                                                 </userDefinedRuntimeAttribute>
@@ -73,15 +64,6 @@
                                             <rect key="frame" x="20" y="15" width="30" height="30"/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <userDefinedRuntimeAttributes>
-                                                <userDefinedRuntimeAttribute type="color" keyPath="onTintColor">
-                                                    <color key="value" white="0.33333333329999998" alpha="1" colorSpace="calibratedWhite"/>
-                                                </userDefinedRuntimeAttribute>
-                                                <userDefinedRuntimeAttribute type="color" keyPath="onCheckColor">
-                                                    <color key="value" white="0.33333333329999998" alpha="1" colorSpace="calibratedWhite"/>
-                                                </userDefinedRuntimeAttribute>
-                                                <userDefinedRuntimeAttribute type="color" keyPath="tintColor">
-                                                    <color key="value" white="0.33333333329999998" alpha="1" colorSpace="calibratedWhite"/>
-                                                </userDefinedRuntimeAttribute>
                                                 <userDefinedRuntimeAttribute type="number" keyPath="animationDuration">
                                                     <real key="value" value="0.29999999999999999"/>
                                                 </userDefinedRuntimeAttribute>
@@ -162,18 +144,14 @@
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LTo-Im-1ts">
                                         <rect key="frame" x="0.0" y="0.0" width="113" height="30"/>
-                                        <state key="normal" title="Clear completed">
-                                            <color key="titleColor" red="0.21568627450980393" green="0.21568627450980393" blue="0.21568627450980393" alpha="1" colorSpace="calibratedRGB"/>
-                                        </state>
+                                        <state key="normal" title="Clear completed"/>
                                         <connections>
                                             <action selector="clearCompleted:" destination="gbi-ka-dRn" eventType="touchUpInside" id="okd-X6-tff"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ufe-p7-ABV">
                                         <rect key="frame" x="0.0" y="38" width="56" height="30"/>
-                                        <state key="normal" title="Clear all">
-                                            <color key="titleColor" red="0.21568627450980393" green="0.21568627450980393" blue="0.21568627450980393" alpha="1" colorSpace="calibratedRGB"/>
-                                        </state>
+                                        <state key="normal" title="Clear all"/>
                                         <connections>
                                             <action selector="clearAll:" destination="gbi-ka-dRn" eventType="touchUpInside" id="Ivc-zn-06F"/>
                                         </connections>
@@ -181,7 +159,6 @@
                                 </subviews>
                             </stackView>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="uGk-IM-GwO" firstAttribute="centerX" secondItem="Tzb-yb-aO4" secondAttribute="centerX" id="Q1A-vq-H1I"/>
                             <constraint firstItem="uGk-IM-GwO" firstAttribute="centerY" secondItem="Tzb-yb-aO4" secondAttribute="centerY" id="zCD-fN-RTf"/>
@@ -245,13 +222,12 @@
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Medium" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="tE0-hX-nRd">
                                                     <rect key="frame" x="20" y="0.0" width="374" height="60"/>
                                                     <autoresizingMask key="autoresizingMask"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
                                         </tableViewCellContentView>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
@@ -264,10 +240,10 @@
                                             <rect key="frame" x="0.0" y="0.0" width="382.66666666666669" height="60"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Reminder" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="KJ1-J4-w6m">
-                                                    <rect key="frame" x="20" y="20" width="73" height="20.333333333333332"/>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Reminder:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="KJ1-J4-w6m">
+                                                    <rect key="frame" x="20" y="20" width="80" height="20.333333333333332"/>
                                                     <autoresizingMask key="autoresizingMask"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -318,9 +294,7 @@
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CGP-Ui-Vka">
                                 <rect key="frame" x="20" y="52" width="85" height="30"/>
-                                <state key="normal" title="No reminder">
-                                    <color key="titleColor" red="0.21568627450980393" green="0.21568627450980393" blue="0.21568627450980393" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                </state>
+                                <state key="normal" title="No reminder"/>
                                 <connections>
                                     <action selector="removeDueDate:" destination="uwo-hK-5jO" eventType="touchUpInside" id="Jm4-lS-yzT"/>
                                 </connections>
@@ -330,15 +304,13 @@
                             </datePicker>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ges-up-5i4">
                                 <rect key="frame" x="357" y="52" width="37" height="30"/>
-                                <state key="normal" title="Done">
-                                    <color key="titleColor" red="0.21568627450980393" green="0.21568627450980393" blue="0.21568627450980393" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                </state>
+                                <state key="normal" title="Done"/>
                                 <connections>
                                     <action selector="addDueDate:" destination="uwo-hK-5jO" eventType="touchUpInside" id="npb-ax-Dep"/>
                                 </connections>
                             </button>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstItem="CGP-Ui-Vka" firstAttribute="leading" secondItem="Le6-Eo-xjY" secondAttribute="leading" constant="20" id="8sk-ce-BmE"/>
                             <constraint firstItem="9EY-34-KSk" firstAttribute="leading" secondItem="Le6-Eo-xjY" secondAttribute="leading" constant="8" id="EhO-Di-EMk"/>
@@ -365,11 +337,9 @@
         <scene sceneID="ps1-mZ-1ov">
             <objects>
                 <navigationController id="8bz-rV-vLO" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" barStyle="black" id="2hO-6R-2UC">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="2hO-6R-2UC">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <color key="barTintColor" red="0.21568627450980393" green="0.21568627450980393" blue="0.21568627450980393" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </navigationBar>
                     <connections>
                         <segue destination="fER-VN-nCk" kind="relationship" relationship="rootViewController" id="KFX-Jd-HMs"/>

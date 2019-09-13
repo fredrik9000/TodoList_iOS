@@ -110,8 +110,7 @@ class TodoListTableViewController: UITableViewController, CreateTodoItemDelegate
             cell.descriptionLabel!.isEnabled = !todoItem.isCompleted
             cell.todoId = todoItem.id
             
-            setCellPriorityColor(priority: todoItem.priority, cell: cell)
-            configureCellCheckbox(cell: cell, isCompleted: todoItem.isCompleted, row: indexPath.row)
+            configureCellCheckbox(cell: cell, isCompleted: todoItem.isCompleted, priority: todoItem.priority, row: indexPath.row)
             
             return cell
         } else {
@@ -129,31 +128,33 @@ class TodoListTableViewController: UITableViewController, CreateTodoItemDelegate
             cell.notificationLabel!.isEnabled = !todoItem.isCompleted
             cell.todoId = todoItem.id
             
-            setCellPriorityColor(priority: todoItem.priority, cell: cell)
-            configureCellCheckbox(cell: cell, isCompleted: todoItem.isCompleted, row: indexPath.row)
+            configureCellCheckbox(cell: cell, isCompleted: todoItem.isCompleted, priority: todoItem.priority, row: indexPath.row)
             
             return cell
         }
     }
     
-    private func setCellPriorityColor(priority: Int, cell: TodoTableViewCell) {
+    private func configureCellCheckbox(cell: TodoTableViewCell, isCompleted: Bool, priority: Int, row: Int) {
+        cell.checkBox.on = isCompleted
+        cell.checkBoxDelegate = self
         if (priority == 0) {
-            cell.backgroundColor = #colorLiteral(red: 0.9568627451, green: 0.9568627451, blue: 0.9568627451, alpha: 1)
+            cell.checkBox.tintColor = #colorLiteral(red: 0.6274509804, green: 0.6274509804, blue: 1, alpha: 1)
+            cell.checkBox.onCheckColor = #colorLiteral(red: 0.6274509804, green: 0.6274509804, blue: 1, alpha: 1)
+            cell.checkBox.onTintColor = #colorLiteral(red: 0.6274509804, green: 0.6274509804, blue: 1, alpha: 1)
         } else if (priority == 1) {
-            cell.backgroundColor = #colorLiteral(red: 0.862745098, green: 0.8156862745, blue: 0.7529411765, alpha: 1)
+            cell.checkBox.tintColor = #colorLiteral(red: 0, green: 0.8156862745, blue: 0, alpha: 1)
+            cell.checkBox.onCheckColor = #colorLiteral(red: 0, green: 0.8156862745, blue: 0, alpha: 1)
+            cell.checkBox.onTintColor = #colorLiteral(red: 0, green: 0.8156862745, blue: 0, alpha: 1)
         } else if (priority == 2) {
-            cell.backgroundColor = #colorLiteral(red: 0.7529411765, green: 0.6980392157, blue: 0.5137254902, alpha: 1)
+            cell.checkBox.tintColor = #colorLiteral(red: 1, green: 0, blue: 0, alpha: 1)
+            cell.checkBox.onCheckColor = #colorLiteral(red: 1, green: 0, blue: 0, alpha: 1)
+            cell.checkBox.onTintColor = #colorLiteral(red: 1, green: 0, blue: 0, alpha: 1)
         }
     }
     
-    private func configureCellCheckbox(cell: TodoTableViewCell, isCompleted: Bool, row: Int) {
-        cell.checkBox.on = isCompleted
-        cell.checkBoxDelegate = self
-    }
-    
     func checkBoxTap(with todoId: String) {
-        // In order to let the checkbox animation finish, a delay of 500 millisenconds is used
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+        // In order to let the checkbox animation finish, a delay of 300 millisenconds is used
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
             let oldPosition = self.findTodoPosition(id: todoId)
             let cell = self.tableView.cellForRow(at: IndexPath(row: oldPosition, section: 0)) as! TodoTableViewCell
             
@@ -301,7 +302,6 @@ extension UITableView {
     func setEmptyMessage(_ message: String) {
         let messageLabel = UILabel(frame: CGRect(x: 0, y: 0, width: self.bounds.size.width, height: self.bounds.size.height))
         messageLabel.text = message
-        messageLabel.textColor = #colorLiteral(red: 0.2156862745, green: 0.2156862745, blue: 0.2156862745, alpha: 1)
         messageLabel.numberOfLines = 0;
         messageLabel.textAlignment = .center;
         messageLabel.font = UIFont.systemFont(ofSize: 40)

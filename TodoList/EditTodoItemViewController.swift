@@ -155,30 +155,29 @@ class EditTodoItemViewController: UITableViewController, UITextFieldDelegate, No
         if (indexPath.section == 1) {
             let priorityForCell = todoItem.priority
             if (priorityForCell == 0) {
-                cell.backgroundColor = #colorLiteral(red: 0.9568627451, green: 0.9568627451, blue: 0.9568627451, alpha: 1)
+                priorityLabel.textColor = #colorLiteral(red: 0.6274509804, green: 0.6274509804, blue: 1, alpha: 1)
             } else if (priorityForCell == 1) {
-                cell.backgroundColor = #colorLiteral(red: 0.862745098, green: 0.8156862745, blue: 0.7529411765, alpha: 1)
+                priorityLabel.textColor = #colorLiteral(red: 0, green: 0.8156862745, blue: 0, alpha: 1)
             } else if (priorityForCell == 2) {
-                cell.backgroundColor = #colorLiteral(red: 0.7529411765, green: 0.6980392157, blue: 0.5137254902, alpha: 1)
+                priorityLabel.textColor = #colorLiteral(red: 1, green: 0, blue: 0, alpha: 1)
             }
         }
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if (indexPath.section == 1) {
-            let myCell = tableView.cellForRow(at: indexPath)
             if todoItem.priority == 0 {
                 priorityLabel.text = "Medium"
                 todoItem.priority = 1
-                myCell?.backgroundColor = #colorLiteral(red: 0.862745098, green: 0.8156862745, blue: 0.7529411765, alpha: 1)
+                priorityLabel.textColor = #colorLiteral(red: 0, green: 0.8156862745, blue: 0, alpha: 1)
             } else if todoItem.priority == 1 {
                 priorityLabel.text = "High"
                 todoItem.priority = 2
-                myCell?.backgroundColor = #colorLiteral(red: 0.7529411765, green: 0.6980392157, blue: 0.5137254902, alpha: 1)
+                priorityLabel.textColor = #colorLiteral(red: 1, green: 0, blue: 0, alpha: 1)
             } else {
                 priorityLabel.text = "Low"
                 todoItem.priority = 0
-                myCell?.backgroundColor = #colorLiteral(red: 0.9568627451, green: 0.9568627451, blue: 0.9568627451, alpha: 1)
+                priorityLabel.textColor = #colorLiteral(red: 0.6274509804, green: 0.6274509804, blue: 1, alpha: 1)
             }
             self.tableView.deselectRow(at: indexPath, animated: true)
         } else if (indexPath.section == 2) {
