@@ -101,7 +101,6 @@ class TodoListTableViewController: UITableViewController, CreateTodoItemDelegate
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
         let todoItem = todoListInfo.todos[indexPath.row]
         if todoItem.dueDate.notificationId == "" || notificationHasExpired(dueDate: todoItem.dueDate) {
             let cell = tableView.dequeueReusableCell(withIdentifier: "todoCell", for: indexPath) as! TodoTableViewCell

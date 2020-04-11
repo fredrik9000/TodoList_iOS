@@ -31,6 +31,7 @@ class EditTodoItemViewController: UITableViewController, UITextFieldDelegate, No
     weak var editTodoItemDelegate: EditTodoItemDelegate!
     weak var createTodoItemDelegate: CreateTodoItemDelegate!
     @IBOutlet private weak var descriptionTextField: UITextField!
+    @IBOutlet weak var notesTextView: UITextView!
     @IBOutlet private weak var priorityLabel: UILabel!
     @IBOutlet private weak var addTodoButton: UIBarButtonItem!
     @IBOutlet private weak var dueDateCell: UITableViewCell!
@@ -71,6 +72,7 @@ class EditTodoItemViewController: UITableViewController, UITextFieldDelegate, No
         }
         
         todoItem.description = description
+        todoItem.notes = notesTextView.text
         
         if isNewItem {
             createTodoItemDelegate.createTodoItem(with: todoItem)
@@ -134,6 +136,8 @@ class EditTodoItemViewController: UITableViewController, UITextFieldDelegate, No
             descriptionTextField.text = todoItem.description
             addTodoButton.isEnabled = true
             
+            notesTextView.text = todoItem.notes
+            
             if todoItem.priority == 0 {
                 priorityLabel.text = "Low"
             } else if todoItem.priority == 1 {
@@ -152,7 +156,7 @@ class EditTodoItemViewController: UITableViewController, UITextFieldDelegate, No
     }
     
     override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        if (indexPath.section == 1) {
+        if (indexPath.section == 2) {
             let priorityForCell = todoItem.priority
             if (priorityForCell == 0) {
                 priorityLabel.textColor = #colorLiteral(red: 0.6274509804, green: 0.6274509804, blue: 1, alpha: 1)
@@ -165,7 +169,7 @@ class EditTodoItemViewController: UITableViewController, UITextFieldDelegate, No
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if (indexPath.section == 1) {
+        if (indexPath.section == 2) {
             if todoItem.priority == 0 {
                 priorityLabel.text = "Medium"
                 todoItem.priority = 1
@@ -180,7 +184,7 @@ class EditTodoItemViewController: UITableViewController, UITextFieldDelegate, No
                 priorityLabel.textColor = #colorLiteral(red: 0.6274509804, green: 0.6274509804, blue: 1, alpha: 1)
             }
             self.tableView.deselectRow(at: indexPath, animated: true)
-        } else if (indexPath.section == 2) {
+        } else if (indexPath.section == 3) {
             self.performSegue(withIdentifier: "Update Reminder", sender: indexPath)
         }
     }

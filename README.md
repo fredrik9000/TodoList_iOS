@@ -17,7 +17,6 @@ This is a simple todo list application for iOS, written in Swift. I have also ma
 
 - Undo functionality (the Android version has this)
 - When adding a notification, it would be nice if it expanded down instead of navigating to a new page
-- A way of adding more notes to a task, maybe increase the description field or add an additional one
 - Ability to search todo items
 - Notification reminders that will be triggered by location
 - Launcher icons
