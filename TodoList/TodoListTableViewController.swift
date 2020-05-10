@@ -118,7 +118,7 @@ class TodoListTableViewController: UITableViewController, CreateTodoItemDelegate
             let calendar = Calendar(identifier: .gregorian)
             let components = DateComponents(year: todoItem.dueDate.year, month: todoItem.dueDate.month, day: todoItem.dueDate.day, hour: todoItem.dueDate.hour, minute: todoItem.dueDate.minute)
             let formatter = DateFormatter()
-            formatter.dateFormat = "MMMM dd, yyyy 'at' hh:mm"
+            formatter.dateFormat = "MMMM dd, yyyy 'at' HH:mm"
             let formattedDate = formatter.string(from: calendar.date(from: components)!)
             
             cell.notificationLabel!.text = "Remind me: \(formattedDate)"

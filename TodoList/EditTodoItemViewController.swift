@@ -87,7 +87,7 @@ class EditTodoItemViewController: UITableViewController, UITextFieldDelegate, No
         let calendar = Calendar(identifier: .gregorian)
         let components = DateComponents(year: todoItem.dueDate.year, month: todoItem.dueDate.month, day: todoItem.dueDate.day, hour: todoItem.dueDate.hour, minute: todoItem.dueDate.minute)
         let formatter = DateFormatter()
-        formatter.dateFormat = "MMMM dd, yyyy 'at' hh:mm"
+        formatter.dateFormat = "MMMM dd, yyyy 'at' HH:mm"
         return formatter.string(from: calendar.date(from: components)!)
     }
     
