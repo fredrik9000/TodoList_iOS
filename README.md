@@ -1,32 +1,27 @@
 # Todo List
 
-This is a simple todo list application for iOS, written in Swift. I have also made an Android version: [Android Todo List](https://github.com/fredrik9000/TodoList_Android)
+This is a simple todo list app for iOS, written in Swift.
 
 #### The app has the following features:
 
-- Adding and editing tasks
-- Setting a priority level for each task (low, medium, high)
-- Adding notifications to tasks 
-- Updating and removing notifications
-- Completing and uncompleting tasks
+- Add and edit tasks
+- Add, remove and update notifications
+- Complete and reopen tasks
 - Delete individual, all completed, or all tasks
-- Dark mode
+- Set a priority level for each task (low, medium, high)
+- Dark mode support
 - Supports English and Norwegian languages.
 
-#### Potential improvements:
-
-- Undo functionality (the Android version has this)
-- When adding a notification, it would be nice if it expanded down instead of navigating to a new page
-- Ability to search todo items
-- Notification reminders that will be triggered by location
-- Launcher icons
+I have a more complete version for Android with geofencing, searching and undo functionality: [Android Todo List](https://github.com/fredrik9000/TodoList_Android)
 
 ## Screenshots
 
-![todo_list_light](https://user-images.githubusercontent.com/13121494/64926132-21c70e00-d7fa-11e9-8c50-3607b0632bfb.png)
+<p float="left">
+  <img src="https://user-images.githubusercontent.com/13121494/90582288-a6ba6480-e1cd-11ea-9f24-bac86a679426.png" width="414" />
+  <img src="https://user-images.githubusercontent.com/13121494/90582287-a5893780-e1cd-11ea-85d3-167677c78477.png" width="414" /> 
+</p>
 
-![edit_task_light](https://user-images.githubusercontent.com/13121494/64926134-2ee3fd00-d7fa-11e9-83cc-bdfc598213d5.png)
-
-![todo_list_dark](https://user-images.githubusercontent.com/13121494/64926138-31465700-d7fa-11e9-98fc-fa486c37c4c5.png)
-
-![edit_task_dark](https://user-images.githubusercontent.com/13121494/64926139-33a8b100-d7fa-11e9-8aaa-98c5fb5f9969.png)
+<p float="left">
+  <img src="https://user-images.githubusercontent.com/13121494/90582285-a4f0a100-e1cd-11ea-9c64-a789372b01ab.png" width="414" />
+  <img src="https://user-images.githubusercontent.com/13121494/90582281-a28e4700-e1cd-11ea-990b-6130e19f4a38.png" width="414" />
+</p>

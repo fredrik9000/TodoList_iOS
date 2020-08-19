@@ -105,8 +105,8 @@ class TodoListTableViewController: UITableViewController, CreateTodoItemDelegate
         if todoItem.dueDate.notificationId == "" || notificationHasExpired(dueDate: todoItem.dueDate) {
             let cell = tableView.dequeueReusableCell(withIdentifier: "todoCell", for: indexPath) as! TodoTableViewCell
             
-            cell.descriptionLabel!.text = todoItem.description
-            cell.descriptionLabel!.isEnabled = !todoItem.isCompleted
+            cell.titleLabel!.text = todoItem.title
+            cell.titleLabel!.isEnabled = !todoItem.isCompleted
             cell.todoId = todoItem.id
             
             configureCellCheckbox(cell: cell, isCompleted: todoItem.isCompleted, priority: todoItem.priority, row: indexPath.row)
@@ -122,8 +122,8 @@ class TodoListTableViewController: UITableViewController, CreateTodoItemDelegate
             let formattedDate = formatter.string(from: calendar.date(from: components)!)
             
             cell.notificationLabel!.text = "Remind me: \(formattedDate)"
-            cell.descriptionLabel!.text = todoItem.description
-            cell.descriptionLabel!.isEnabled = !todoItem.isCompleted
+            cell.titleLabel!.text = todoItem.title
+            cell.titleLabel!.isEnabled = !todoItem.isCompleted
             cell.notificationLabel!.isEnabled = !todoItem.isCompleted
             cell.todoId = todoItem.id
             
@@ -271,8 +271,8 @@ class TodoListTableViewController: UITableViewController, CreateTodoItemDelegate
             return !todo1.isCompleted
         } else if(todo1.priority != todo2.priority) {
             return todo1.priority > todo2.priority
-        } else if (todo1.description != todo2.description) {
-            return todo1.description < todo2.description
+        } else if (todo1.title != todo2.title) {
+            return todo1.title < todo2.title
         } else {
             return true
         }

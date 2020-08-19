@@ -30,14 +30,14 @@ class EditTodoItemViewController: UITableViewController, UITextFieldDelegate, No
 
     weak var editTodoItemDelegate: EditTodoItemDelegate!
     weak var createTodoItemDelegate: CreateTodoItemDelegate!
-    @IBOutlet private weak var descriptionTextField: UITextField!
-    @IBOutlet weak var notesTextView: UITextView!
+    @IBOutlet private weak var titleTextField: UITextField!
+    @IBOutlet weak var descriptionTextView: UITextView!
     @IBOutlet private weak var priorityLabel: UILabel!
     @IBOutlet private weak var addTodoButton: UIBarButtonItem!
     @IBOutlet private weak var dueDateCell: UITableViewCell!
     
     @IBAction private func updateTodoItem(_ sender: Any) {
-        guard let description = descriptionTextField.text else {
+        guard let title = titleTextField.text else {
             return
         }
         
@@ -48,7 +48,7 @@ class EditTodoItemViewController: UITableViewController, UITextFieldDelegate, No
             } else {
                 let content = UNMutableNotificationContent()
                 content.title = "Task reminder"
-                content.body = description
+                content.body = title
                 let trigger = UNCalendarNotificationTrigger(
                     dateMatching: dateComponents, repeats: false)
                 
@@ -71,8 +71,8 @@ class EditTodoItemViewController: UITableViewController, UITextFieldDelegate, No
             }
         }
         
-        todoItem.description = description
-        todoItem.notes = notesTextView.text
+        todoItem.title = title
+        todoItem.description = descriptionTextView.text
         
         if isNewItem {
             createTodoItemDelegate.createTodoItem(with: todoItem)
@@ -122,7 +122,7 @@ class EditTodoItemViewController: UITableViewController, UITextFieldDelegate, No
     }
     
     @objc func textFieldDidChange(_ textField: UITextField) {
-        if !(descriptionTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)! {
+        if !(titleTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)! {
             addTodoButton.isEnabled = true
         } else {
             addTodoButton.isEnabled = false
@@ -133,10 +133,10 @@ class EditTodoItemViewController: UITableViewController, UITextFieldDelegate, No
         super.viewDidLoad()
         
         if !isNewItem {
-            descriptionTextField.text = todoItem.description
+            titleTextField.text = todoItem.title
             addTodoButton.isEnabled = true
             
-            notesTextView.text = todoItem.notes
+            descriptionTextView.text = todoItem.description
             
             if todoItem.priority == 0 {
                 priorityLabel.text = "Low"
@@ -152,7 +152,7 @@ class EditTodoItemViewController: UITableViewController, UITextFieldDelegate, No
             self.title = "Add task"
         }
         
-        descriptionTextField.addTarget(self, action: #selector(EditTodoItemViewController.textFieldDidChange(_:)), for: UIControl.Event.editingChanged)
+        titleTextField.addTarget(self, action: #selector(EditTodoItemViewController.textFieldDidChange(_:)), for: UIControl.Event.editingChanged)
     }
     
     override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
