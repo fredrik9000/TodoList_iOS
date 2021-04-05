@@ -16,11 +16,11 @@ protocol NotificationDelegate: AnyObject {
 class DueDateViewController: UIViewController {
     
     weak var notificationDelegate: NotificationDelegate!
-
+    
     @IBOutlet private weak var removeDueDateButton: UIButton!
     @IBOutlet private weak var addDueDateButton: UIButton!
     @IBOutlet private weak var datePicker: UIDatePicker!
-    var notificationDate : TodoListInfo.DueDate?
+    var notificationDate: TodoListInfo.DueDate?
     
     @IBAction private func removeDueDate(_ sender: Any) {
         notificationDelegate.prepareRemoveNotification()
@@ -35,9 +35,12 @@ class DueDateViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         if let dueDate = notificationDate {
-            let calendar = Calendar(identifier: .gregorian)
-            let components = DateComponents(year: dueDate.year, month: dueDate.month, day: dueDate.day, hour: dueDate.hour, minute: dueDate.minute)
-            datePicker.setDate(calendar.date(from: components)!, animated: false)
+            let components = DateComponents(year: dueDate.year,
+                                            month: dueDate.month,
+                                            day: dueDate.day,
+                                            hour: dueDate.hour,
+                                            minute: dueDate.minute)
+            datePicker.setDate(Calendar(identifier: .gregorian).date(from: components)!, animated: false)
         }
         datePicker.minimumDate = Date()
     }

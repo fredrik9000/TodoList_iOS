@@ -15,8 +15,7 @@ protocol DeleteTodoItemsDelegate: AnyObject {
 class DeleteTodoItemsViewController: UIViewController {
     
     weak var deleteTodoItemsDelegate: DeleteTodoItemsDelegate!
-
-
+    
     @IBOutlet private weak var topLevelStackView: UIStackView!
     
     private let popoverWidthPadding: CGFloat = 30
@@ -31,16 +30,11 @@ class DeleteTodoItemsViewController: UIViewController {
         deleteTodoItemsDelegate.deleteAllTodoItems()
         presentingViewController?.dismiss(animated: true)
     }
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
-    }
     
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         let fittedSize = topLevelStackView.sizeThatFits(UIView.layoutFittingCompressedSize)
-        preferredContentSize = CGSize(width: fittedSize.width + popoverWidthPadding, height: fittedSize.height + popoverHeightPadding)
+        preferredContentSize = CGSize(width: fittedSize.width + popoverWidthPadding,
+                                      height: fittedSize.height + popoverHeightPadding)
     }
 }

@@ -12,21 +12,21 @@ struct TodoListInfo: Codable {
     var todos = [TodoItem]()
     
     struct TodoItem: Codable {
-        let id = UUID().uuidString
+        var id = UUID().uuidString
         var title = ""
         var description = ""
-        var priority = 1 // Medium
+        var priority = Priorities.mediumPriority
         var dueDate = DueDate(year: 0, month: 0, day: 0, hour: 0, minute: 0, notificationId: "")
         var isCompleted = false
     }
     
     struct DueDate: Codable {
-        var year : Int
-        var month : Int
-        var day : Int
-        var hour : Int
-        var minute : Int
-        var notificationId : String
+        var year: Int
+        var month: Int
+        var day: Int
+        var hour: Int
+        var minute: Int
+        var notificationId: String
     }
     
     var json: Data? {
@@ -43,5 +43,18 @@ struct TodoListInfo: Codable {
     
     init(todoList: [TodoItem]) {
         self.todos = todoList
+    }
+}
+
+extension TodoListInfo.DueDate {
+    func formattedDateString() -> String {
+        let components = DateComponents(year: self.year,
+                                        month: self.month,
+                                        day: self.day,
+                                        hour: self.hour,
+                                        minute: self.minute)
+        let formatter = DateFormatter()
+        formatter.dateFormat = "MMMM dd, yyyy 'at' HH:mm"
+        return formatter.string(from: Calendar(identifier: .gregorian).date(from: components)!)
     }
 }

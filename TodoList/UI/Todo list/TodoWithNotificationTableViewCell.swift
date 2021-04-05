@@ -9,6 +9,6 @@
 import UIKit
 
 class TodoWithNotificationTableViewCell: TodoTableViewCell {
-
+    
     @IBOutlet weak var notificationLabel: UILabel!
 }

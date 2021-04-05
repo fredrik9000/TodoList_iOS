@@ -15,21 +15,20 @@ protocol CHeckBoxDelegate: AnyObject {
 
 class TodoTableViewCell: UITableViewCell, BEMCheckBoxDelegate {
 
-    weak var checkBoxDelegate : CHeckBoxDelegate?
-    
+    weak var checkBoxDelegate: CHeckBoxDelegate?
+
     @IBOutlet weak var checkBox: BEMCheckBox!
-    
+
     @IBOutlet weak var titleLabel: UILabel!
-    
+
     var todoId = ""
-    
+
     override func awakeFromNib() {
         super.awakeFromNib()
         checkBox.delegate = self
     }
-    
+
     func didTap(_ checkBox: BEMCheckBox) {
         checkBoxDelegate!.checkBoxTap(with: todoId)
     }
-
 }

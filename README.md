@@ -10,7 +10,6 @@ This is a simple todo list app for iOS, written in Swift.
 - Delete individual, all completed, or all tasks
 - Set a priority level for each task (low, medium, high)
 - Dark mode support
-- Supports English and Norwegian languages.
 
 I have a more complete version for Android with geofencing, searching and undo functionality: [Android Todo List](https://github.com/fredrik9000/TodoList_Android)
 
