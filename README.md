@@ -1,6 +1,6 @@
 # Todo List
 
-This is a simple todo list app for iOS, written in Swift.
+This is a simple todo list app for iOS, written in Swift and UIKit.
 
 #### The app has the following features:
 
@@ -11,7 +11,9 @@ This is a simple todo list app for iOS, written in Swift.
 - Set a priority level for each task (low, medium, high)
 - Dark mode support
 
-I have a more complete version for Android with geofencing, searching and undo functionality: [Android Todo List](https://github.com/fredrik9000/TodoList_Android)
+I have also written the same app with SwiftUI: [iOS Todo List](https://github.com/fredrik9000/TodoList_SwiftUI)
+
+I have a more complex version for Android with geofencing, searching and undo functionality: [Android Todo List](https://github.com/fredrik9000/TodoList_Android)
 
 ## Screenshots
 
