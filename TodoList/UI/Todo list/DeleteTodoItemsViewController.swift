@@ -34,7 +34,9 @@ class DeleteTodoItemsViewController: UIViewController {
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         let fittedSize = topLevelStackView.sizeThatFits(UIView.layoutFittingCompressedSize)
-        preferredContentSize = CGSize(width: fittedSize.width + popoverWidthPadding,
-                                      height: fittedSize.height + popoverHeightPadding)
+        preferredContentSize = CGSize(
+            width: fittedSize.width + popoverWidthPadding,
+            height: fittedSize.height + popoverHeightPadding
+        )
     }
 }

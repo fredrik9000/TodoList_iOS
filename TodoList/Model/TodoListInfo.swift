@@ -48,11 +48,14 @@ struct TodoListInfo: Codable {
 
 extension TodoListInfo.DueDate {
     func formattedDateString() -> String {
-        let components = DateComponents(year: self.year,
-                                        month: self.month,
-                                        day: self.day,
-                                        hour: self.hour,
-                                        minute: self.minute)
+        let components = DateComponents(
+            year: self.year,
+            month: self.month,
+            day: self.day,
+            hour: self.hour,
+            minute: self.minute
+        )
+
         let formatter = DateFormatter()
         formatter.dateFormat = "MMMM dd, yyyy 'at' HH:mm"
         return formatter.string(from: Calendar(identifier: .gregorian).date(from: components)!)

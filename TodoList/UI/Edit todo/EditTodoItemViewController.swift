@@ -41,34 +41,7 @@ class EditTodoItemViewController: UITableViewController, UITextFieldDelegate, No
         }
 
         if updateNotification {
-            if removeNotification {
-                UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [todoItem.dueDate.notificationId])
-                todoItem.dueDate.notificationId = ""
-            } else {
-                // For tasks without a notification we need to create a notification id.
-                // If a task has an existing notification it will be removed before adding the new one.
-                if todoItem.dueDate.notificationId == "" || notificationHasExpired(dueDate: todoItem.dueDate) {
-                    todoItem.dueDate.notificationId = UUID().uuidString
-                } else {
-                    UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [todoItem.dueDate.notificationId])
-                }
-
-                let content = UNMutableNotificationContent()
-                content.title = "Task reminder"
-                content.body = title
-
-                // Schedule the request with the system.
-                UNUserNotificationCenter.current().add(
-                    UNNotificationRequest(identifier: todoItem.dueDate.notificationId,
-                                          content: content,
-                                          trigger: UNCalendarNotificationTrigger(dateMatching: dateComponents,
-                                                                                 repeats: false))
-                ) { (error) in
-                    if error != nil {
-                        // TODO: Handle error.
-                    }
-                }
-            }
+            updateNotification(title: title)
         }
 
         todoItem.title = title
@@ -83,12 +56,52 @@ class EditTodoItemViewController: UITableViewController, UITextFieldDelegate, No
         self.navigationController?.popViewController(animated: true)
     }
 
+    private func updateNotification(title: String) {
+        if removeNotification {
+            UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [todoItem.dueDate.notificationId])
+            todoItem.dueDate.notificationId = ""
+        } else {
+            // For tasks without a notification we need to create a notification id.
+            // If a task has an existing notification we remove it before adding the new one.
+            if todoItem.dueDate.notificationId == "" || notificationHasExpired(dueDate: todoItem.dueDate) {
+                todoItem.dueDate.notificationId = UUID().uuidString
+            } else {
+                UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [todoItem.dueDate.notificationId])
+            }
+
+            addNotififaction(title: title)
+        }
+    }
+
+    private func addNotififaction(title: String) {
+        let content = UNMutableNotificationContent()
+        content.title = "Task reminder"
+        content.body = title
+
+        // Schedule the request with the system.
+        UNUserNotificationCenter.current().add(
+            UNNotificationRequest(
+                identifier: todoItem.dueDate.notificationId,
+                content: content,
+                trigger: UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: false)
+            )
+        ) { (error) in
+            if error != nil {
+                // TODO: Handle error.
+            }
+        }
+    }
+
     private func notificationHasExpired(dueDate: TodoListInfo.DueDate) -> Bool {
-        return Calendar.current.date(from: DateComponents(year: dueDate.year,
-                                                          month: dueDate.month,
-                                                          day: dueDate.day,
-                                                          hour: dueDate.hour,
-                                                          minute: dueDate.minute))!.timeIntervalSinceNow.sign == .minus
+        return Calendar.current.date(
+            from: DateComponents(
+                year: dueDate.year,
+                month: dueDate.month,
+                day: dueDate.day,
+                hour: dueDate.hour,
+                minute: dueDate.minute
+            )
+        )!.timeIntervalSinceNow.sign == .minus
     }
 
     func prepareAddNotification(with date: Date) {

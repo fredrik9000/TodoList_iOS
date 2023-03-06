@@ -129,10 +129,12 @@ class TodoListTableViewController: UITableViewController, CreateTodoItemDelegate
             cell.titleLabel!.isEnabled = !todoItem.isCompleted
             cell.todoId = todoItem.id
 
-            configureCellCheckbox(cell: cell,
-                                  isCompleted: todoItem.isCompleted,
-                                  priority: todoItem.priority,
-                                  row: indexPath.row)
+            configureCellCheckbox(
+                cell: cell,
+                isCompleted: todoItem.isCompleted,
+                priority: todoItem.priority,
+                row: indexPath.row
+            )
 
             return cell
         } else {
@@ -145,10 +147,12 @@ class TodoListTableViewController: UITableViewController, CreateTodoItemDelegate
             cell.notificationLabel!.isEnabled = !todoItem.isCompleted
             cell.todoId = todoItem.id
 
-            configureCellCheckbox(cell: cell,
-                                  isCompleted: todoItem.isCompleted,
-                                  priority: todoItem.priority,
-                                  row: indexPath.row)
+            configureCellCheckbox(
+                cell: cell,
+                isCompleted: todoItem.isCompleted,
+                priority: todoItem.priority,
+                row: indexPath.row
+            )
 
             return cell
         }
@@ -208,11 +212,15 @@ class TodoListTableViewController: UITableViewController, CreateTodoItemDelegate
     }
 
     private func notificationHasExpired(dueDate: TodoListInfo.DueDate) -> Bool {
-        return Calendar.current.date(from: DateComponents(year: dueDate.year,
-                                                          month: dueDate.month,
-                                                          day: dueDate.day,
-                                                          hour: dueDate.hour,
-                                                          minute: dueDate.minute))!.timeIntervalSinceNow.sign == .minus
+        return Calendar.current.date(
+            from: DateComponents(
+                year: dueDate.year,
+                month: dueDate.month,
+                day: dueDate.day,
+                hour: dueDate.hour,
+                minute: dueDate.minute
+            )
+        )!.timeIntervalSinceNow.sign == .minus
     }
 
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
